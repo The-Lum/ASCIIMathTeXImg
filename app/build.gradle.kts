@@ -32,10 +32,10 @@ dependencies {
 //    }
 // }
 
-application {
-    // Define the main class for the application.
-    // mainClass = "org.example.App"
-}
+// application {
+//    Define the main class for the application.
+//    mainClass = "org.example.App"
+// }
 
 tasks.named<Test>("test") {
     // Use JUnit Platform for unit tests.
@@ -49,3 +49,11 @@ tasks.jacocoTestReport {
     dependsOn(tasks.test) // tests are required to run before generating the report
 }
 
+tasks.register<Test>("aTest") {
+    description = "Runs the unit test 'ATest'."
+    group = "verification"
+    useJUnitPlatform()
+    filter {
+        includeTestsMatching("math.ATest")
+    }
+}
