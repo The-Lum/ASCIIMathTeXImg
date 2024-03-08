@@ -49,6 +49,15 @@ tasks.test {
 }
 tasks.jacocoTestReport {
     dependsOn(tasks.test) // tests are required to run before generating the report
+    reports.csv.required = true
+}
+
+tasks.register<Copy>("jacocoTestReportMarkdownAndCopyToDoc") {
+    description = "Copies jacoco markdown report on docs directory."
+    group = "verification"
+    dependsOn(tasks.jacocoTestReportMarkdown)
+    from(layout.buildDirectory.file("reports/jacoco/test/jacocoSummary.md"))
+    into(layout.buildDirectory.dir("../../docs"))
 }
 
 tasks.register<Test>("aTest") {
