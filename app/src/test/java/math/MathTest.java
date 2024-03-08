@@ -17,6 +17,8 @@ class MathTest {
 			" '[[a,b],[c,d]]',              {\\left[\\begin{matrix}{a}&{b}\\\\{c}&{d}\\end{matrix}\\right]} ",
 			" color(red)(x),                {\\textcolor{red}{{x}}} ",
 			" color(red)(t)=color(blue)(x), {\\textcolor{red}{{t}}}={\\textcolor{blue}{{x}}} ",
+			" f,                            {f} ",
+			" f_g,                          {{f}_{{g}}} ",
 	})
 	public void testMath(String input, String expected) {
 		final String res = new ASCIIMathTeXImg().getTeX(input);
