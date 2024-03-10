@@ -91,5 +91,6 @@ sonar {
     property("sonar.projectKey", "The-Lum_ASCIIMathTeXImg")
     property("sonar.organization", "the-lum")
     property("sonar.host.url", "https://sonarcloud.io")
+    property("sonar.coverage.jacoco.xmlReportPaths", "reports/jacoco/test/jacocoTestReport.xml")
   }
 }
