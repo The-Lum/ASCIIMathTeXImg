@@ -619,7 +619,7 @@ public class ASCIIMathTeXImg {
 				st = "" + result[0].charAt(6);
 				if (st.equals(")") || st.equals("]") || st.equals("}")) {
 					leftchop = 6;
-				} else if (st == ".") {
+				} else if (st.equals{"."}) {
 					leftchop = 7;
 				} else {
 					st = substr(result[0], 6, 7);
