@@ -432,7 +432,7 @@ public class ASCIIMathTeXImg {
 	private String AMremoveCharsAndBlanks(String str, int n) {
 		// remove n characters and any following blanks
 		String st;
-		if (str.length() > n && str.charAt(n) == '\\' && str.charAt(n + 1) != '\\' && str.charAt(n + 1) != ' ')
+		if (str.length() > 1 && str.length() > n && str.charAt(n) == '\\' && str.charAt(n + 1) != '\\' && str.charAt(n + 1) != ' ')
 			st = slice(str, n + 1);
 		else
 			st = slice(str, n);
@@ -532,7 +532,7 @@ public class ASCIIMathTeXImg {
 
 	private String AMTremoveBrackets(String node) {
 		String st;
-		if (node.charAt(0) == '{' && node.charAt(node.length() - 1) == '}') {
+		if (node.length() > 1 && node.charAt(0) == '{' && node.charAt(node.length() - 1) == '}') {
 			int leftchop = 0;
 
 			st = substr(node, 1, 5);

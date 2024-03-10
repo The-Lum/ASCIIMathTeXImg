@@ -69,6 +69,15 @@ tasks.register<Test>("aTest") {
     }
 }
 
+tasks.register<Test>("runUnitTestGen") {
+    description = "Runs the 'UnitTestGen'."
+    group = "verification"
+    useJUnitPlatform()
+    filter {
+        includeTestsMatching("math.UnitTestGen")
+    }
+}
+
 pmd {
     isConsoleOutput = true
     toolVersion = "7.0.0-rc4"
