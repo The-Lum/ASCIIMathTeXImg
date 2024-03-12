@@ -27,6 +27,10 @@ dependencies {
     // implementation(libs.guava)
 }
 
+test {
+    testLogging.showStandardStreams = false
+}
+
 tasks.named<Test>("test") {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()

@@ -29,7 +29,7 @@ jobs:
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-          restore-keys: ${{ runner.os }}-gradle*
+          restore-keys: ${{ runner.os }}-gradle
       - name: Save 'build.gradle.kts' file
         run: mv app/build.gradle.kts app/build.gradle.old.kts
       - name: Rename 'build.gradle.sonar.kts' file
