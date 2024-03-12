@@ -27,16 +27,13 @@ dependencies {
     // implementation(libs.guava)
 }
 
-test {
-    testLogging.showStandardStreams = false
-}
-
 tasks.named<Test>("test") {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
 }
 
 tasks.test {
+    testLogging.showStandardStreams = false
     finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
 }
 tasks.jacocoTestReport {
