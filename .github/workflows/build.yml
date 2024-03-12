@@ -29,9 +29,13 @@ jobs:
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-          restore-keys: ${{ runner.os }}-gradle
+          restore-keys: ${{ runner.os }}-gradle*
+      - name: Save 'build.gradle.kts' file
+        run: mv app/build.gradle.kts app/build.gradle.old.kts
+      - name: Rename 'build.gradle.sonar.kts' file
+        run: mv app/build.gradle.sonar.kts app/build.gradle.kts
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: gradle --build-file=app/build.gradle.sonar.kts build sonar --info
+        run: gradle build sonar --info
