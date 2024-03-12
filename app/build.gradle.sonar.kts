@@ -38,7 +38,8 @@ tasks.test {
 }
 tasks.jacocoTestReport {
     dependsOn(tasks.test) // tests are required to run before generating the report
-    reports.csv.required = true
+    //reports.csv.required = true
+    reports.xml.required = true
 }
 
 sonar {
@@ -46,6 +47,6 @@ sonar {
     property("sonar.projectKey", "The-Lum_ASCIIMathTeXImg")
     property("sonar.organization", "the-lum")
     property("sonar.host.url", "https://sonarcloud.io")
-    property("sonar.coverage.jacoco.xmlReportPaths", "reports/jacoco/test/jacocoTestReport.xml")
+    //property("sonar.coverage.jacoco.xmlReportPaths", "reports/jacoco/test/jacocoTestReport.xml")
   }
 }
