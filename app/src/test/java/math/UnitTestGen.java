@@ -1,5 +1,7 @@
 package math;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -505,11 +507,11 @@ class UnitTestGen {
 		"/4",
 		"lim_(x rarr 2^-) f(x)",
 	})
-	public void test(String input) {
+	void test(String input) {
 		final String res = cut.getTeX(input);
 		String out = "\t\t\"'" + input + "',\t'" + res + "'\",";
 		System.out.println(out.replace("\\","\\\\"));
-		assert(true);
+		assertNotNull(res, "Result must be not null");
 	}
 
 	@AfterAll

@@ -21,7 +21,7 @@ class MathTest {
 			" f_g,                          {{f}_{{g}}} ",
 			" '[[1,2,3],[4,5,6]]',          {\\left[\\begin{matrix}{1}&{2}&{3}\\\\{4}&{5}&{6}\\end{matrix}\\right]} ",
 	})
-	public void testMath(String input, String expected) {
+	void testMath(String input, String expected) {
 		final String res = new ASCIIMathTeXImg().getTeX(input);
 		assertEquals(expected, res);
 	}

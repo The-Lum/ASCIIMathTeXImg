@@ -1,5 +1,7 @@
 package math;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -10,9 +12,9 @@ class ATest {
 	@CsvSource(value = {
 		" a ",
 	})
-	public void atest(String input) {
+	void atest(String input) {
 		final String res = cut.getTeX(input);
 		System.out.println(input + " -> " + res);
-		assert(true);
+		assertNotNull(res, "Result must be not null");
 	}
 }
