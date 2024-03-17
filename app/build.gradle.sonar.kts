@@ -3,6 +3,8 @@
  * For more details on building Java & JVM projects, please refer to https://docs.gradle.org/8.6/userguide/building_java_projects.html in the Gradle documentation.
  */
 
+description = "Java port of `ASCIIMathTeXImg.js`"
+
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
@@ -44,6 +46,7 @@ tasks.jacocoTestReport {
 
 sonar {
   properties {
+    property("sonar.projectName", "ASCIIMathTeXImg_Java")
     property("sonar.projectKey", "The-Lum_ASCIIMathTeXImg")
     property("sonar.organization", "the-lum")
     property("sonar.host.url", "https://sonarcloud.io")
