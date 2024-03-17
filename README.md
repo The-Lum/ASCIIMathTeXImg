@@ -1,5 +1,13 @@
 # ASCIIMathTeXImg
-Java port of [`ASCIIMathTeXImg.js`](https://github.com/asciimath/asciimathml/blob/master/asciimath-based/ASCIIMathTeXImg.js)
+
+_Java port of [`ASCIIMathTeXImg.js`](https://github.com/asciimath/asciimathml/blob/master/asciimath-based/ASCIIMathTeXImg.js)._
+
+This code will convert expressions in [AsciiMath](https://en.wikipedia.org/wiki/AsciiMath) notation into [LaTeX](https://en.wikipedia.org/wiki/LaTeX) expressions.
+
+## 🏷️ Badge 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=The-Lum_ASCIIMathTeXImg&metric=alert_status)](https://sonarcloud.io/project/overview?id=The-Lum_ASCIIMathTeXImg)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=The-Lum_ASCIIMathTeXImg&metric=code_smells)](https://sonarcloud.io/summary/overall?id=The-Lum_ASCIIMathTeXImg)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=The-Lum_ASCIIMathTeXImg&metric=coverage)](https://sonarcloud.io/summary/overall?id=The-Lum_ASCIIMathTeXImg)
 
 ## ℹ️ Source and Credit
 
