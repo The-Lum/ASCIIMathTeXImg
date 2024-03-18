@@ -10,7 +10,7 @@ plugins {
     jacoco
     id("com.github.sakata1222.jacoco-markdown") version "1.4.0"
     pmd
-    id("org.sonarqube") version "4.4.1.3373"
+    //id("org.sonarqube") version "4.4.1.3373"
 }
 
 repositories {
@@ -85,7 +85,7 @@ pmd {
     rulesMinimumPriority = 5
     ruleSets = listOf("category/java/errorprone.xml", "category/java/bestpractices.xml")
 }
-
+/*
 sonar {
   properties {
     property("sonar.projectKey", "The-Lum_ASCIIMathTeXImg")
@@ -94,3 +94,4 @@ sonar {
     property("sonar.coverage.jacoco.xmlReportPaths", "reports/jacoco/test/jacocoTestReport.xml")
   }
 }
+*/

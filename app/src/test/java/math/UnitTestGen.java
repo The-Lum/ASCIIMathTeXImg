@@ -506,6 +506,20 @@ class UnitTestGen {
 		"2^+3",
 		"/4",
 		"lim_(x rarr 2^-) f(x)",
+
+// new tests for code coverage
+		"text(f)",
+		"text({f})",
+		"text([f])",
+		"text(  a)",
+		"text(  a  )",
+		"text<a>",
+		"text<a >",
+		"text{f}",
+		"text[f]",
+		"text{f",
+		"text[f",
+		"text{f abc",
 	})
 	void test(String input) {
 		final String res = cut.getTeX(input);

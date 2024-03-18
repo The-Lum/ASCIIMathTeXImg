@@ -659,14 +659,20 @@ public class ASCIIMathTeXImg {
 				i = 0;
 			if (i == -1)
 				i = str.length();
-			st = str.substring(1, i);
-			if (st.charAt(0) == ' ') {
-				newFrag = "\\ ";
+			if (i == 0) {
+				newFrag = "\\text{" + str.charAt(0) + "}";
+			} else {
+				st = str.substring(1, i);
+				if (st.charAt(0) == ' ') {
+					newFrag = "\\ ";
+				}
+				newFrag += "\\text{" + st + "}";
+				if (st.charAt(st.length() - 1) == ' ') {
+					newFrag += "\\ ";
+				}
 			}
-			newFrag += "\\text{" + st + "}";
-			if (st.charAt(st.length() - 1) == ' ') {
-				newFrag += "\\ ";
-			}
+			if (i == str.length())
+				i = i - 1;
 			str = AMremoveCharsAndBlanks(str, i + 1);
 			return new String[] { newFrag, str };
 
