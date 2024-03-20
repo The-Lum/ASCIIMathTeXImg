@@ -71,9 +71,9 @@ import java.util.List;
 
 public class ASCIIMathTeXImg {
 
-	private int AMnestingDepth;
-	private Ttype AMpreviousSymbol;
-	private Ttype AMcurrentSymbol;
+	private int aAMnestingDepth;
+	private Ttype aAMpreviousSymbol;
+	private Ttype aAMcurrentSymbol;
 
 	private String slice(String str, int start, int end) {
 		if (end > str.length()) {
@@ -94,7 +94,7 @@ public class ASCIIMathTeXImg {
 	}
 
 	// Token types
-	private static enum Ttype { 
+	private enum Ttype {
 		CONST, UNARY, BINARY, INFIX, LEFTBRACKET, RIGHTBRACKET,
 		SPACE, UNDEROVER, DEFINITION, LEFTRIGHT, TEXT;
 	}
@@ -135,18 +135,18 @@ public class ASCIIMathTeXImg {
 		}
 	}
 
-	private static final Tupple AMsqrt  = new Tupple("sqrt"    , "msqrt", "sqrt"    , null, Ttype.UNARY );
-	private static final Tupple AMroot  = new Tupple("root"    , "mroot", "root"    , null, Ttype.BINARY);
-	private static final Tupple AMfrac  = new Tupple("frac"    , "mfrac", "/"       , null, Ttype.BINARY);
-	private static final Tupple AMdiv   = new Tupple("/"       , "mfrac", "/"       , null, Ttype.INFIX );
-	private static final Tupple AMover  = new Tupple("stackrel", "mover", "stackrel", null, Ttype.BINARY);
-	private static final Tupple AMsub   = new Tupple("_"       , "msub" , "_"       , null, Ttype.INFIX );
-	private static final Tupple AMsup   = new Tupple("^"       , "msup" , "^"       , null, Ttype.INFIX );
-	private static final Tupple AMtext  = new Tupple("text"    , "mtext", "text"    , null, Ttype.TEXT  );
-	private static final Tupple AMmbox  = new Tupple("mbox"    , "mtext", "mbox"    , null, Ttype.TEXT  );
-	private static final Tupple AMquote = new Tupple("\""      , "mtext", "mbox"    , null, Ttype.TEXT  );
+	private static final Tupple aAMsqrt  = new Tupple("sqrt"    , "msqrt", "sqrt"    , null, Ttype.UNARY );
+	private static final Tupple aAMroot  = new Tupple("root"    , "mroot", "root"    , null, Ttype.BINARY);
+	private static final Tupple aAMfrac  = new Tupple("frac"    , "mfrac", "/"       , null, Ttype.BINARY);
+	private static final Tupple aAMdiv   = new Tupple("/"       , "mfrac", "/"       , null, Ttype.INFIX );
+	private static final Tupple aAMover  = new Tupple("stackrel", "mover", "stackrel", null, Ttype.BINARY);
+	private static final Tupple aAMsub   = new Tupple("_"       , "msub" , "_"       , null, Ttype.INFIX );
+	private static final Tupple aAMsup   = new Tupple("^"       , "msup" , "^"       , null, Ttype.INFIX );
+	private static final Tupple aAMtext  = new Tupple("text"    , "mtext", "text"    , null, Ttype.TEXT  );
+	private static final Tupple aAMmbox  = new Tupple("mbox"    , "mtext", "mbox"    , null, Ttype.TEXT  );
+	private static final Tupple aAMquote = new Tupple("\""      , "mtext", "mbox"    , null, Ttype.TEXT  );
 
-	private static final List<Tupple> AMsymbols = new ArrayList<>(Arrays.asList(new Tupple[] { //
+	private static final List<Tupple> aAMsymbols = new ArrayList<>(Arrays.asList(new Tupple[] { //
 			// some greek symbols
 			new Tupple("alpha"     , "mi", "\u03B1", null     , Ttype.CONST     ), //
 			new Tupple("beta"      , "mi", "\u03B2", null     , Ttype.CONST     ), //
@@ -385,7 +385,7 @@ public class ASCIIMathTeXImg {
 			new Tupple("hArr", "mo", "\u21D4", "Leftrightarrow"       , Ttype.CONST), //
 
 			// commands with argument
-			AMsqrt, AMroot, AMfrac, AMdiv, AMover, AMsub, AMsup,
+			aAMsqrt, aAMroot, aAMfrac, aAMdiv, aAMover, aAMsub, aAMsup,
 			new Tupple("cancel", "menclose", "cancel", null        , Ttype.UNARY       ), //
 			new Tupple("Sqrt"  , "msqrt"   , "sqrt"  , null        , Ttype.UNARY       ), //
 			new Tupple("hat"   , "mover"   , "\u005E", null        , Ttype.UNARY, "acc"), //
@@ -397,23 +397,23 @@ public class ASCIIMathTeXImg {
 			new Tupple("ul"    , "munder"  , "\u0332", "underline" , Ttype.UNARY, "acc"), //
 			new Tupple("ubrace", "munder"  , "\u23DF", "underbrace", Ttype.UNARY, "acc"), //
 			new Tupple("obrace", "mover"   , "\u23DE", "overbrace" , Ttype.UNARY, "acc"), //
-			AMtext, AMmbox, AMquote, //
+			aAMtext, aAMmbox, aAMquote, //
 			new Tupple("color", "mstyle", null, null, Ttype.BINARY), //
 	} //
 	));
 
-	private static String[] AMnames;
+	private static String[] aAMnames;
 
-	private static void AMinitSymbols() {
-		int symlen = AMsymbols.size();
+	private static void aAMinitSymbols() {
+		int symlen = aAMsymbols.size();
 		for (int i = 0; i < symlen; i++) {
-			if (AMsymbols.get(i).tex != null && !(AMsymbols.get(i).hasFlag("notexcopy"))) {
-				Tupple tmp = AMsymbols.get(i).hasFlag("acc")
-						? new Tupple(AMsymbols.get(i).tex, AMsymbols.get(i).tag, AMsymbols.get(i).output, null,
-								AMsymbols.get(i).ttype, "acc")
-						: new Tupple(AMsymbols.get(i).tex, AMsymbols.get(i).tag, AMsymbols.get(i).output, null,
-								AMsymbols.get(i).ttype);
-				AMsymbols.add(tmp);
+			if (aAMsymbols.get(i).tex != null && !(aAMsymbols.get(i).hasFlag("notexcopy"))) {
+				Tupple tmp = aAMsymbols.get(i).hasFlag("acc")
+						? new Tupple(aAMsymbols.get(i).tex, aAMsymbols.get(i).tag, aAMsymbols.get(i).output, null,
+								aAMsymbols.get(i).ttype, "acc")
+						: new Tupple(aAMsymbols.get(i).tex, aAMsymbols.get(i).tag, aAMsymbols.get(i).output, null,
+								aAMsymbols.get(i).ttype);
+				aAMsymbols.add(tmp);
 			}
 		}
 		refreshSymbols();
@@ -421,18 +421,18 @@ public class ASCIIMathTeXImg {
 	}
 
 	private static void refreshSymbols() {
-		Collections.sort(AMsymbols, new Comparator<Tupple>() {
+		Collections.sort(aAMsymbols, new Comparator<Tupple>() {
 			public int compare(Tupple o1, Tupple o2) {
 				return o1.input.compareTo(o2.input);
 			}
 		});
-		AMnames = new String[AMsymbols.size()];
-		for (int i = 0; i < AMsymbols.size(); i++)
-			AMnames[i] = AMsymbols.get(i).input;
+		aAMnames = new String[aAMsymbols.size()];
+		for (int i = 0; i < aAMsymbols.size(); i++)
+			aAMnames[i] = aAMsymbols.get(i).input;
 
 	}
 
-	private String AMremoveCharsAndBlanks(String str, int n) {
+	private String aAMremoveCharsAndBlanks(String str, int n) {
 		// remove n characters and any following blanks
 		String st;
 		if (str.length() > 1 && str.length() > n && str.charAt(n) == '\\' && str.charAt(n + 1) != '\\' && str.charAt(n + 1) != ' ')
@@ -445,7 +445,7 @@ public class ASCIIMathTeXImg {
 		return slice(st, i);
 	}
 
-	private int AMposition(String[] arr, String str, int n) {
+	private int aAMposition(String[] arr, String str, int n) {
 		// return position >=n where str appears or would be inserted
 		// assumes arr is sorted
 		int i = 0;
@@ -468,7 +468,7 @@ public class ASCIIMathTeXImg {
 		return i; // i=arr.length || arr[i]>=str
 	}
 
-	private Tupple AMgetSymbol(String str) {
+	private Tupple aAMgetSymbol(String str) {
 		// return maximal initial substring of str that appears in names
 		// return null if there is none
 		int k = 0; // new pos
@@ -481,21 +481,21 @@ public class ASCIIMathTeXImg {
 		for (int i = 1; i <= str.length() && more; i++) {
 			st = str.substring(0, i); // initial substring of length i
 			j = k;
-			k = AMposition(AMnames, st, j);
-			if (k < AMnames.length && slice(str, 0, AMnames[k].length()).equals(AMnames[k])) {
-				match = AMnames[k];
+			k = aAMposition(aAMnames, st, j);
+			if (k < aAMnames.length && slice(str, 0, aAMnames[k].length()).equals(aAMnames[k])) {
+				match = aAMnames[k];
 				mk = k;
 				i = match.length();
 			}
-			more = k < AMnames.length && slice(str, 0, AMnames[k].length()).compareTo(AMnames[k]) >= 0;
+			more = k < aAMnames.length && slice(str, 0, aAMnames[k].length()).compareTo(aAMnames[k]) >= 0;
 		}
-		AMpreviousSymbol = AMcurrentSymbol;
+		aAMpreviousSymbol = aAMcurrentSymbol;
 		if (match.equals("") == false) {
-			AMcurrentSymbol = AMsymbols.get(mk).ttype;
-			return AMsymbols.get(mk);
+			aAMcurrentSymbol = aAMsymbols.get(mk).ttype;
+			return aAMsymbols.get(mk);
 		}
 		// if str[0] is a digit or - return maxsubstring of digits.digits
-		AMcurrentSymbol = Ttype.CONST;
+		aAMcurrentSymbol = Ttype.CONST;
 		k = 1;
 		st = slice(str, 0, 1);
 		boolean integ = true;
@@ -525,15 +525,15 @@ public class ASCIIMathTeXImg {
 			tagst = (("A".compareTo(st) > 0 || st.compareTo("Z") > 0)
 					&& ("a".compareTo(st) > 0 || st.compareTo("z") > 0) ? "mo" : "mi");
 		}
-		if (st.equals("-") && AMpreviousSymbol == Ttype.INFIX) {
-			AMcurrentSymbol = Ttype.INFIX;
+		if (st.equals("-") && aAMpreviousSymbol == Ttype.INFIX) {
+			aAMcurrentSymbol = Ttype.INFIX;
 			return new Tupple(st, tagst, st, null, Ttype.UNARY, "func", "val");
 		}
 		return new Tupple(st, tagst, st, null, Ttype.CONST, "val"); // added val bit
 
 	}
 
-	private String AMTremoveBrackets(String node) {
+	private String aAMTremoveBrackets(String node) {
 		String st;
 		if (node.length() > 1 && node.charAt(0) == '{' && node.charAt(node.length() - 1) == '}') {
 			int leftchop = 0;
@@ -569,7 +569,7 @@ public class ASCIIMathTeXImg {
 		return node;
 	}
 
-	private String AMTgetTeXsymbol(Tupple symb) {
+	private String aAMTgetTeXsymbol(Tupple symb) {
 		String pre;
 		if (symb.hasFlag("val")) {
 			pre = "";
@@ -585,26 +585,26 @@ public class ASCIIMathTeXImg {
 		}
 	}
 
-	private String[] AMTparseSexpr(String str) {
+	private String[] aAMTparseSexpr(String str) {
 		Tupple symbol;
 		int i;
 		String node, st;
 		String newFrag = "";
 		String result[];
-		str = AMremoveCharsAndBlanks(str, 0);
-		symbol = AMgetSymbol(str); // either a token or a bracket or empty
-		if (symbol == null || symbol.ttype == Ttype.RIGHTBRACKET && AMnestingDepth > 0) {
+		str = aAMremoveCharsAndBlanks(str, 0);
+		symbol = aAMgetSymbol(str); // either a token or a bracket or empty
+		if (symbol == null || symbol.ttype == Ttype.RIGHTBRACKET && aAMnestingDepth > 0) {
 			return new String[] { null, str };
 		}
 		if (symbol.ttype == Ttype.DEFINITION) {
-			str = symbol.output + AMremoveCharsAndBlanks(str, symbol.input.length());
-			symbol = AMgetSymbol(str);
+			str = symbol.output + aAMremoveCharsAndBlanks(str, symbol.input.length());
+			symbol = aAMgetSymbol(str);
 		}
 		switch (symbol.ttype) {
 		case UNDEROVER:
 		case CONST:
-			str = AMremoveCharsAndBlanks(str, symbol.input.length());
-			String texsymbol = AMTgetTeXsymbol(symbol);
+			str = aAMremoveCharsAndBlanks(str, symbol.input.length());
+			String texsymbol = aAMTgetTeXsymbol(symbol);
 			if (texsymbol.isEmpty() || texsymbol.charAt(0) == '\\' || symbol.tag.equals("mo"))
 				return new String[] { texsymbol, str };
 			else {
@@ -612,11 +612,11 @@ public class ASCIIMathTeXImg {
 			}
 
 		case LEFTBRACKET: // read (expr+)
-			AMnestingDepth++;
-			str = AMremoveCharsAndBlanks(str, symbol.input.length());
+			aAMnestingDepth++;
+			str = aAMremoveCharsAndBlanks(str, symbol.input.length());
 
-			result = AMTparseExpr(str, true);
-			AMnestingDepth--;
+			result = aAMTparseExpr(str, true);
+			aAMnestingDepth--;
 			int leftchop = 0;
 			if (substr(result[0], 0, 6).equals("\\right")) {
 				st = "" + result[0].charAt(6);
@@ -636,27 +636,27 @@ public class ASCIIMathTeXImg {
 				if (symbol.hasFlag("invisible"))
 					node = "{" + result[0] + "}";
 				else {
-					node = "{" + AMTgetTeXsymbol(symbol) + result[0] + "}";
+					node = "{" + aAMTgetTeXsymbol(symbol) + result[0] + "}";
 				}
 			} else {
 				if (symbol.hasFlag("invisible"))
 					node = "{\\left." + result[0] + "}";
 				else {
-					node = "{\\left" + AMTgetTeXsymbol(symbol) + result[0] + "}";
+					node = "{\\left" + aAMTgetTeXsymbol(symbol) + result[0] + "}";
 				}
 			}
 			return new String[] { node, result[1] };
 
 		case TEXT:
-			if (symbol != AMquote)
-				str = AMremoveCharsAndBlanks(str, symbol.input.length());
+			if (symbol != aAMquote)
+				str = aAMremoveCharsAndBlanks(str, symbol.input.length());
 			if (str.charAt(0) == '{')
 				i = str.indexOf("}");
 			else if (str.charAt(0) == '(')
 				i = str.indexOf(")");
 			else if (str.charAt(0) == '[')
 				i = str.indexOf("]");
-			else if (symbol == AMquote)
+			else if (symbol == aAMquote)
 				i = str.substring(1).indexOf("\"") + 1;
 			else
 				i = 0;
@@ -676,25 +676,25 @@ public class ASCIIMathTeXImg {
 			}
 			if (i == str.length())
 				i = i - 1;
-			str = AMremoveCharsAndBlanks(str, i + 1);
+			str = aAMremoveCharsAndBlanks(str, i + 1);
 			return new String[] { newFrag, str };
 
 		case UNARY:
-			str = AMremoveCharsAndBlanks(str, symbol.input.length());
-			result = AMTparseSexpr(str);
+			str = aAMremoveCharsAndBlanks(str, symbol.input.length());
+			result = aAMTparseSexpr(str);
 			if (result[0] == null)
-				return new String[] { "{" + AMTgetTeXsymbol(symbol) + "}", str };
+				return new String[] { "{" + aAMTgetTeXsymbol(symbol) + "}", str };
 			if (symbol.hasFlag("func")) { // functions hack
 				st = "" + (str.isEmpty() ? "" : str.charAt(0));
 				if (st.equals("^") || st.equals("_") || st.equals("/") || st.equals("|") || st.equals(",")
 						|| (symbol.input.length() == 1 && symbol.input.matches("\\w") && !st.equals("("))) {
-					return new String[] { "{" + AMTgetTeXsymbol(symbol) + "}", str };
+					return new String[] { "{" + aAMTgetTeXsymbol(symbol) + "}", str };
 				} else {
-					node = "{" + AMTgetTeXsymbol(symbol) + "{" + result[0] + "}}";
+					node = "{" + aAMTgetTeXsymbol(symbol) + "{" + result[0] + "}}";
 					return new String[] { node, result[1] };
 				}
 			}
-			result[0] = AMTremoveBrackets(result[0]);
+			result[0] = aAMTremoveBrackets(result[0]);
 			if (symbol.input.equals("sqrt")) { // sqrt
 				return new String[] { "\\sqrt{" + result[0] + "}", result[1] };
 			} else if (symbol.input.equals("cancel")) { // cancel
@@ -703,39 +703,39 @@ public class ASCIIMathTeXImg {
 				return new String[] { "{\\left" + symbol.rewriteleftright[0] + result[0] + "\\right"
 						+ symbol.rewriteleftright[1] + '}', result[1] };
 			} else if (symbol.hasFlag("acc")) { // accent
-				return new String[] { AMTgetTeXsymbol(symbol) + "{" + result[0] + "}", result[1] };
+				return new String[] { aAMTgetTeXsymbol(symbol) + "{" + result[0] + "}", result[1] };
 			} else { // font change command
-				return new String[] { "{" + AMTgetTeXsymbol(symbol) + "{" + result[0] + "}}", result[1] };
+				return new String[] { "{" + aAMTgetTeXsymbol(symbol) + "{" + result[0] + "}}", result[1] };
 			}
 		case BINARY:
-			str = AMremoveCharsAndBlanks(str, symbol.input.length());
-			result = AMTparseSexpr(str);
+			str = aAMremoveCharsAndBlanks(str, symbol.input.length());
+			result = aAMTparseSexpr(str);
 			if (result[0] == null)
-				return new String[] { '{' + AMTgetTeXsymbol(symbol) + '}', str };
-			result[0] = AMTremoveBrackets(result[0]);
-			String[] result2 = AMTparseSexpr(result[1]);
+				return new String[] { '{' + aAMTgetTeXsymbol(symbol) + '}', str };
+			result[0] = aAMTremoveBrackets(result[0]);
+			String[] result2 = aAMTparseSexpr(result[1]);
 			if (result2[0] == null)
-				return new String[] { '{' + AMTgetTeXsymbol(symbol) + '}', str };
-			result2[0] = AMTremoveBrackets(result2[0]);
+				return new String[] { '{' + aAMTgetTeXsymbol(symbol) + '}', str };
+			result2[0] = aAMTremoveBrackets(result2[0]);
 			if (symbol.input.equals("color")) {
 				newFrag = "{\\color{" + result[0].replaceAll("[\\{\\}]", "") + "}" + result2[0] + "}";
 			} else if (symbol.input.equals("root")) {
 				newFrag = "{\\sqrt[" + result[0] + "]{" + result2[0] + "}}";
 			} else {
-				newFrag = "{" + AMTgetTeXsymbol(symbol) + "{" + result[0] + "}{" + result2[0] + "}}";
+				newFrag = "{" + aAMTgetTeXsymbol(symbol) + "{" + result[0] + "}{" + result2[0] + "}}";
 			}
 			return new String[] { newFrag, result2[1] };
 		case INFIX:
-			str = AMremoveCharsAndBlanks(str, symbol.input.length());
+			str = aAMremoveCharsAndBlanks(str, symbol.input.length());
 			return new String[] { symbol.output, str };
 		case SPACE:
-			str = AMremoveCharsAndBlanks(str, symbol.input.length());
+			str = aAMremoveCharsAndBlanks(str, symbol.input.length());
 			return new String[] { "{\\quad\\text{" + symbol.input + "}\\quad}", str };
 		case LEFTRIGHT:
-			AMnestingDepth++;
-			str = AMremoveCharsAndBlanks(str, symbol.input.length());
-			result = AMTparseExpr(str, false);
-			AMnestingDepth--;
+			aAMnestingDepth++;
+			str = aAMremoveCharsAndBlanks(str, symbol.input.length());
+			result = aAMTparseExpr(str, false);
+			aAMnestingDepth--;
 			st = "" + result[0].charAt(result[0].length() - 1);
 			if (st.equals("|")) { // its an absolute value subterm
 				node = "{\\left|" + result[0] + "}";
@@ -746,36 +746,36 @@ public class ASCIIMathTeXImg {
 			}
 		default:
 			// alert("default");
-			str = AMremoveCharsAndBlanks(str, symbol.input.length());
-			return new String[] { "{" + AMTgetTeXsymbol(symbol) + "}", str };
+			str = aAMremoveCharsAndBlanks(str, symbol.input.length());
+			return new String[] { "{" + aAMTgetTeXsymbol(symbol) + "}", str };
 
 		}
 	}
 
-	private String[] AMTparseIexpr(String str) {
+	private String[] aAMTparseIexpr(String str) {
 		Tupple symbol, sym1, sym2;
 		String result[];
 		String node;
-		str = AMremoveCharsAndBlanks(str, 0);
-		sym1 = AMgetSymbol(str);
-		result = AMTparseSexpr(str);
+		str = aAMremoveCharsAndBlanks(str, 0);
+		sym1 = aAMgetSymbol(str);
+		result = aAMTparseSexpr(str);
 		node = result[0];
 		str = result[1];
-		symbol = AMgetSymbol(str);
+		symbol = aAMgetSymbol(str);
 		if (symbol.ttype == Ttype.INFIX && !symbol.input.equals("/")) {
-			str = AMremoveCharsAndBlanks(str, symbol.input.length());
-			result = AMTparseSexpr(str);
+			str = aAMremoveCharsAndBlanks(str, symbol.input.length());
+			result = aAMTparseSexpr(str);
 			if (result[0] == null) // show box in place of missing argument
 				result[0] = "{}";
 			else
-				result[0] = AMTremoveBrackets(result[0]);
+				result[0] = aAMTremoveBrackets(result[0]);
 			str = result[1];
 			if (symbol.input.equals("_")) {
-				sym2 = AMgetSymbol(str);
+				sym2 = aAMgetSymbol(str);
 				if (sym2.input.equals("^")) {
-					str = AMremoveCharsAndBlanks(str, sym2.input.length());
-					String[] res2 = AMTparseSexpr(str);
-					res2[0] = AMTremoveBrackets(res2[0]);
+					str = aAMremoveCharsAndBlanks(str, sym2.input.length());
+					String[] res2 = aAMTparseSexpr(str);
+					res2[0] = aAMTremoveBrackets(res2[0]);
 					str = res2[1];
 					node = "{" + node;
 					node += "_{" + result[0] + "}";
@@ -788,9 +788,9 @@ public class ASCIIMathTeXImg {
 				node = node + "^{" + result[0] + "}";
 			}
 			if (sym1.hasFlag("func")) {
-				sym2 = AMgetSymbol(str);
+				sym2 = aAMgetSymbol(str);
 				if (sym2.ttype != Ttype.INFIX && sym2.ttype != Ttype.RIGHTBRACKET) {
-					result = AMTparseIexpr(str);
+					result = aAMTparseIexpr(str);
 					node = "{" + node + result[0] + "}";
 					str = result[1];
 				}
@@ -799,7 +799,7 @@ public class ASCIIMathTeXImg {
 		return new String[] { node, str };
 	}
 
-	private String[] AMTparseExpr(String str, boolean rightbracket) {
+	private String[] aAMTparseExpr(String str, boolean rightbracket) {
 		String result[];
 		Tupple symbol;
 		String node;
@@ -807,31 +807,31 @@ public class ASCIIMathTeXImg {
 		String newFrag = "";
 		boolean addedright = false;
 		do {
-			str = AMremoveCharsAndBlanks(str, 0);
-			result = AMTparseIexpr(str);
+			str = aAMremoveCharsAndBlanks(str, 0);
+			result = aAMTparseIexpr(str);
 			node = result[0];
 			str = result[1];
-			symbol = AMgetSymbol(str);
+			symbol = aAMgetSymbol(str);
 
 			if (symbol.ttype == Ttype.INFIX && symbol.input.equals("/")) {
-				str = AMremoveCharsAndBlanks(str, symbol.input.length());
-				result = AMTparseIexpr(str);
+				str = aAMremoveCharsAndBlanks(str, symbol.input.length());
+				result = aAMTparseIexpr(str);
 
 				if (result[0] == null) // show box in place of missing argument
 					result[0] = "{}";
 				else
-					result[0] = AMTremoveBrackets(result[0]);
+					result[0] = aAMTremoveBrackets(result[0]);
 				str = result[1];
-				node = AMTremoveBrackets(node);
+				node = aAMTremoveBrackets(node);
 				node = "\\frac" + "{" + node + "}";
 				node += "{" + result[0] + "}";
 				newFrag += node;
-				symbol = AMgetSymbol(str);
+				symbol = aAMgetSymbol(str);
 			} else if (node != null)
 				newFrag += node;
 
 		} while ((((symbol.ttype != Ttype.RIGHTBRACKET) && (symbol.ttype != Ttype.LEFTRIGHT || rightbracket))
-				|| AMnestingDepth == 0) && (symbol.output == null || symbol.output.equals("") == false));
+				|| aAMnestingDepth == 0) && (symbol.output == null || symbol.output.equals("") == false));
 
 		if (symbol.ttype == Ttype.RIGHTBRACKET || symbol.ttype == Ttype.LEFTRIGHT) {
 			int len = newFrag.length();
@@ -944,9 +944,9 @@ public class ASCIIMathTeXImg {
 					}
 				}
 			}
-			str = AMremoveCharsAndBlanks(str, symbol.input.length());
+			str = aAMremoveCharsAndBlanks(str, symbol.input.length());
 			if (!symbol.hasFlag("invisible")) {
-				node = "\\right" + AMTgetTeXsymbol(symbol);
+				node = "\\right" + aAMTgetTeXsymbol(symbol);
 				newFrag += node;
 				addedright = true;
 			} else {
@@ -954,7 +954,7 @@ public class ASCIIMathTeXImg {
 				addedright = true;
 			}
 		}
-		if (AMnestingDepth > 0 && !addedright) {
+		if (aAMnestingDepth > 0 && !addedright) {
 			newFrag += "\\right."; // adjust for non-matching left brackets
 			// todo: adjust for non-matching right brackets
 		}
@@ -967,15 +967,15 @@ public class ASCIIMathTeXImg {
 	}
 
 	public String getTeX(String asciiMathInput) {
-		AMnestingDepth = 0;
-		AMpreviousSymbol = Ttype.CONST;
-		AMcurrentSymbol = Ttype.CONST;
-		final String result = AMTparseExpr(asciiMathInput, false)[0];
+		aAMnestingDepth = 0;
+		aAMpreviousSymbol = Ttype.CONST;
+		aAMcurrentSymbol = Ttype.CONST;
+		final String result = aAMTparseExpr(asciiMathInput, false)[0];
 		return patchColor(result);
 	}
 
 	static {
-		AMinitSymbols();
+		aAMinitSymbols();
 	}
 
 }
