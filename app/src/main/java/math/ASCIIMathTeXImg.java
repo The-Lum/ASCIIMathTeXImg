@@ -450,7 +450,8 @@ public class ASCIIMathTeXImg {
 		// assumes arr is sorted
 		int i = 0;
 		if (n == 0) {
-			int h, m;
+			int h;
+			int m;
 			n = -1;
 			h = arr.length;
 			while (n + 1 < h) {
@@ -490,7 +491,7 @@ public class ASCIIMathTeXImg {
 			more = k < aAMnames.length && slice(str, 0, aAMnames[k].length()).compareTo(aAMnames[k]) >= 0;
 		}
 		aAMpreviousSymbol = aAMcurrentSymbol;
-		if (match.equals("") == false) {
+		if (!match.equals("")) {
 			aAMcurrentSymbol = aAMsymbols.get(mk).ttype;
 			return aAMsymbols.get(mk);
 		}
@@ -588,9 +589,10 @@ public class ASCIIMathTeXImg {
 	private String[] aAMTparseSexpr(String str) {
 		Tupple symbol;
 		int i;
-		String node, st;
+		String node;
+		String st;
 		String newFrag = "";
-		String result[];
+		String[] result;
 		str = aAMremoveCharsAndBlanks(str, 0);
 		symbol = aAMgetSymbol(str); // either a token or a bracket or empty
 		if (symbol == null || symbol.ttype == Ttype.RIGHTBRACKET && aAMnestingDepth > 0) {
@@ -601,8 +603,7 @@ public class ASCIIMathTeXImg {
 			symbol = aAMgetSymbol(str);
 		}
 		switch (symbol.ttype) {
-		case UNDEROVER:
-		case CONST:
+		case UNDEROVER, CONST:
 			str = aAMremoveCharsAndBlanks(str, symbol.input.length());
 			String texsymbol = aAMTgetTeXsymbol(symbol);
 			if (texsymbol.isEmpty() || texsymbol.charAt(0) == '\\' || symbol.tag.equals("mo"))
@@ -753,8 +754,10 @@ public class ASCIIMathTeXImg {
 	}
 
 	private String[] aAMTparseIexpr(String str) {
-		Tupple symbol, sym1, sym2;
-		String result[];
+		Tupple symbol;
+		Tupple sym1;
+		Tupple sym2;
+		String[] result;
 		String node;
 		str = aAMremoveCharsAndBlanks(str, 0);
 		sym1 = aAMgetSymbol(str);
@@ -800,7 +803,7 @@ public class ASCIIMathTeXImg {
 	}
 
 	private String[] aAMTparseExpr(String str, boolean rightbracket) {
-		String result[];
+		String[] result;
 		Tupple symbol;
 		String node;
 		// var symbol, node, result, i, nodeList = [],
@@ -831,7 +834,7 @@ public class ASCIIMathTeXImg {
 				newFrag += node;
 
 		} while ((((symbol.ttype != Ttype.RIGHTBRACKET) && (symbol.ttype != Ttype.LEFTRIGHT || rightbracket))
-				|| aAMnestingDepth == 0) && (symbol.output == null || symbol.output.equals("") == false));
+				|| aAMnestingDepth == 0) && (symbol.output == null || !symbol.output.equals("")));
 
 		if (symbol.ttype == Ttype.RIGHTBRACKET || symbol.ttype == Ttype.LEFTRIGHT) {
 			int len = newFrag.length();
