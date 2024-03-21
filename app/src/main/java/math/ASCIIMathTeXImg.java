@@ -421,15 +421,10 @@ public class ASCIIMathTeXImg {
 	}
 
 	private static void refreshSymbols() {
-		Collections.sort(aAMsymbols, new Comparator<Tupple>() {
-			public int compare(Tupple o1, Tupple o2) {
-				return o1.input.compareTo(o2.input);
-			}
-		});
+		Collections.sort(aAMsymbols, (o1, o2) -> o1.input.compareTo(o2.input));
 		aAMnames = new String[aAMsymbols.size()];
 		for (int i = 0; i < aAMsymbols.size(); i++)
 			aAMnames[i] = aAMsymbols.get(i).input;
-
 	}
 
 	private String aAMremoveCharsAndBlanks(String str, int n) {
@@ -521,7 +516,7 @@ public class ASCIIMathTeXImg {
 			st = slice(str, 0, k - 1);
 			tagst = "mn";
 		} else {
-			k = 2;
+			//k = 2;
 			st = slice(str, 0, 1); // take 1 character
 			tagst = (("A".compareTo(st) > 0 || st.compareTo("Z") > 0)
 					&& ("a".compareTo(st) > 0 || st.compareTo("z") > 0) ? "mo" : "mi");
@@ -658,7 +653,7 @@ public class ASCIIMathTeXImg {
 			else if (str.charAt(0) == '[')
 				i = str.indexOf("]");
 			else if (symbol == aAMquote)
-				i = str.substring(1).indexOf("\"") + 1;
+				i = str.indexOf("\"", 1);
 			else
 				i = 0;
 			if (i == -1)
