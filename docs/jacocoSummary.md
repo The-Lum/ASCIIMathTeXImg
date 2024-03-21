@@ -1,8 +1,8 @@
-|Type       |       Missed/Total|           Coverage|
-|:---       |               ---:|               ---:|
-|INSTRUCTION|~~78/6213~~ 78/6203|   ~~98.74~~ 98.74%|
-|BRANCH     |(Not Changed)41/357|(Not Changed)88.52%|
-|LINE       |  ~~11/415~~ 11/413|   ~~97.35~~ 97.34%|
+|Type       |        Missed/Total|           Coverage|
+|:---       |                ---:|               ---:|
+|INSTRUCTION|(Not Changed)78/6203|(Not Changed)98.74%|
+|BRANCH     | (Not Changed)41/357|(Not Changed)88.52%|
+|LINE       | (Not Changed)11/413|(Not Changed)97.34%|
 
 Class list with less coverage (Worst 5)
 

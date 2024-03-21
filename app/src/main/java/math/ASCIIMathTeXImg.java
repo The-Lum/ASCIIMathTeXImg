@@ -66,7 +66,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class ASCIIMathTeXImg {
@@ -882,7 +881,7 @@ public class ASCIIMathTeXImg {
 
 						pos.add(len);
 						int lastmxsubcnt = -1;
-						if (mxnestingd == 0 && pos.size() > 0 && matrix) {
+						if (mxnestingd == 0 && !pos.isEmpty() && matrix) {
 							for (int i = 0; i < pos.size() - 1; i++) {
 								List<String> subarr = null;
 								if (i > 0)
