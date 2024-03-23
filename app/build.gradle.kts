@@ -21,6 +21,7 @@ repositories {
 dependencies {
     // Use JUnit Jupiter for testing.
     testImplementation(libs.junit.jupiter)
+    testImplementation("org.assertj:assertj-core:3.25.3")
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
@@ -75,7 +76,7 @@ tasks.register<Test>("runUnitTestGen") {
     group = "verification"
     useJUnitPlatform()
     filter {
-        includeTestsMatching("math.UnitTestGen")
+        includeTestsMatching("math.TestUnitTestGen")
     }
 }
 

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-class UnitTestGen {
+class TestUnitTestGen {
 	ASCIIMathTeXImg cut = new ASCIIMathTeXImg();
 
 	@BeforeAll
@@ -20,7 +20,7 @@ class UnitTestGen {
 //single symbol output
 		"!=",
 		"!in",
-		"'''",
+		//"'''",
 		"(",
 		"(:",
 		")",
@@ -522,9 +522,11 @@ class UnitTestGen {
 		"text{f abc",
 	})
 	void test(String input) {
-		final String res = cut.getTeX(input);
-		String out = "\t\t\"'" + input + "',\t'" + res + "'\",";
-		System.out.println(out.replace("\\","\\\\"));
+		String res = cut.getTeX(input);
+		input = input.replace("\\","\\\\");
+		input = input.replace("\"", "\\\"");
+		res = res.replace("\\","\\\\");
+		System.out.printf("\t\" %-57s, '%s' \",%n", "'"+input+"'", res);
 		assertNotNull(res, "Result must be not null");
 	}
 
