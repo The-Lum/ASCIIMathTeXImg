@@ -94,8 +94,8 @@ class ASCIIMathTeXImgUnitTest {
 		" 'ast'                                                    , '\\ast' ",
 		" 'backslash'                                              , '\\backslash' ",
 		" 'bar'                                                    , '\\overline{}' ",
-		" 'bb'                                                     , '{b}{b}' ",
-		" 'bbb'                                                    , '{b}{b}{b}' ",
+		" 'bb'                                                     , '{b}{b}' ", //FIXME
+		" 'bbb'                                                    , '{b}{b}{b}' ", //FIXME
 		" 'beta'                                                   , '\\beta' ",
 		" 'bigcap'                                                 , '\\bigcap' ",
 		" 'bigcup'                                                 , '\\bigcup' ",
@@ -152,7 +152,7 @@ class ASCIIMathTeXImgUnitTest {
 		" 'glb'                                                    , '\\glb' ",
 		" 'grad'                                                   , '\\nabla' ",
 		" 'gt'                                                     , '\\gt' ",
-		" 'mgt'                                                    , '{m}\\gt' ",
+		" 'mgt'                                                    , '{m}\\gt' ", //FIXME
 		" 'gt='                                                    , '\\geq' ",
 		" 'hArr'                                                   , '\\Leftrightarrow' ",
 		" 'harr'                                                   , '\\leftrightarrow' ",
@@ -182,7 +182,7 @@ class ASCIIMathTeXImgUnitTest {
 		" 'ln'                                                     , '{\\ln{}}' ",
 		" 'log'                                                    , '{\\log{}}' ",
 		" 'lt'                                                     , '\\lt' ",
-		" 'mlt'                                                    , '{m}\\lt' ",
+		" 'mlt'                                                    , '{m}\\lt' ", //FIXME
 		" 'lt='                                                    , '\\leq' ",
 		" 'ltimes'                                                 , '\\ltimes' ",
 		" 'lub'                                                    , '\\lub' ",
@@ -220,7 +220,7 @@ class ASCIIMathTeXImgUnitTest {
 		" 'pm'                                                     , '\\pm' ",
 		" 'prec'                                                   , '\\prec' ",
 		" 'preceq'                                                 , '\\preceq' ",
-		" 'prime'                                                  , '{p}{r}{i}{m}{e}' ",
+		" 'prime'                                                  , '{p}{r}{i}{m}{e}' ", //FIXME
 		" 'prod'                                                   , '\\prod' ",
 		" 'prop'                                                   , '\\propto' ",
 		" 'propto'                                                 , '\\propto' ",
@@ -338,12 +338,12 @@ class ASCIIMathTeXImgUnitTest {
 		" '\"hi\"'                                                 , '\\text{hi}' ",
 		" 'cancel(x)'                                              , '\\cancel{{{x}}}' ",
 		" 'color(red)(x)'                                          , '{\\textcolor{red}{{x}}}' ",
-		" 'bb(x)'                                                  , '{b}{b}{\\left({x}\\right)}' ",
-		" 'sf(x)'                                                  , '{s}{f{{\\left({x}\\right)}}}' ",
-		" 'bbb(x)'                                                 , '{b}{b}{b}{\\left({x}\\right)}' ",
-		" 'cc(x)'                                                  , '{c}{c}{\\left({x}\\right)}' ",
-		" 'tt(x)'                                                  , '{t}{t}{\\left({x}\\right)}' ",
-		" 'fr(x)'                                                  , '{f}{r}{\\left({x}\\right)}' ",
+		" 'bb(x)'                                                  , '{b}{b}{\\left({x}\\right)}' ", //FIXME
+		" 'sf(x)'                                                  , '{s}{f{{\\left({x}\\right)}}}' ", //FIXME
+		" 'bbb(x)'                                                 , '{b}{b}{b}{\\left({x}\\right)}' ", //FIXME
+		" 'cc(x)'                                                  , '{c}{c}{\\left({x}\\right)}' ", //FIXME
+		" 'tt(x)'                                                  , '{t}{t}{\\left({x}\\right)}' ", //FIXME
+		" 'fr(x)'                                                  , '{f}{r}{\\left({x}\\right)}' ", //FIXME
 		" 'x'                                                      , '{x}' ",
 		" '2'                                                      , '{2}' ",
 		" 'x^2'                                                    , '{x}^{{2}}' ",
@@ -445,8 +445,8 @@ class ASCIIMathTeXImgUnitTest {
 		" 'u_-3 + u_- 3'                                           , '{u}_{{-{{3}}}}+{u}_{{-{{3}}}}' ",
 		" '2^- +3'                                                 , '{2}^{{-{+}}}{3}' ",
 		" '3~2,5sim4'                                              , '{3}~{2},{5}{s}{i}{m}{4}' ",
-		" 'overparen(AB)'                                          , '{o}{v}{e}{r}{p}{a}{r}{e}{n}{\\left({A}{B}\\right)}' ",
-		" 'overarc(AB)'                                            , '{o}{v}{e}{r}{a}{r}{c}{\\left({A}{B}\\right)}' ",
+		" 'overparen(AB)'                                          , '{o}{v}{e}{r}{p}{a}{r}{e}{n}{\\left({A}{B}\\right)}' ", //FIXME
+		" 'overarc(AB)'                                            , '{o}{v}{e}{r}{a}{r}{c}{\\left({A}{B}\\right)}' ", //FIXME
 		" '(x-+5)(xmp5)'                                           , '{\\left({x}-+{5}\\right)}{\\left({x}{m}{p}{5}\\right)}' ",
 		" '3/'                                                     , '\\frac{{3}}{}' ",
 		" '2^'                                                     , '{2}^{}' ",

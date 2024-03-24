@@ -4,9 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+@Disabled("Just to generate the unit test file, not a test")
 class TestUnitTestGen {
 	ASCIIMathTeXImg cut = new ASCIIMathTeXImg();
 
