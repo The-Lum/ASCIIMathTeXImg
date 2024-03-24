@@ -894,10 +894,10 @@ public class ASCIIMathTeXImg {
 								if (i == 0) {
 									// var subarr = newFrag.substr(pos[i]+7,pos[i+1]-pos[i]-15).split(',');
 									if (subpos.get(pos.get(i)).size() == 1) {
-										subarr = new ArrayList<String>(Arrays.asList(
+										subarr = new ArrayList<>(Arrays.asList(
 												substr(newFrag, pos.get(i) + 7, pos.get(i + 1) - pos.get(i) - 15)));
 									} else {
-										subarr = new ArrayList<String>(Arrays.asList(
+										subarr = new ArrayList<>(Arrays.asList(
 												newFrag.substring(pos.get(i) + 7, subpos.get(pos.get(i)).get(1))));
 										for (int j = 2; j < subpos.get(pos.get(i)).size(); j++) {
 											subarr.add(newFrag.substring(subpos.get(pos.get(i)).get(j - 1) + 1,
@@ -910,10 +910,10 @@ public class ASCIIMathTeXImg {
 								} else {
 									// var subarr = newFrag.substr(pos[i]+8,pos[i+1]-pos[i]-16).split(',');
 									if (subpos.get(pos.get(i)).size() == 1) {
-										subarr = new ArrayList<String>(Arrays.asList(
+										subarr = new ArrayList<>(Arrays.asList(
 												substr(newFrag, pos.get(i) + 8, pos.get(i + 1) - pos.get(i) - 16)));
 									} else {
-										subarr = new ArrayList<String>(Arrays.asList(
+										subarr = new ArrayList<>(Arrays.asList(
 												newFrag.substring(pos.get(i) + 8, subpos.get(pos.get(i)).get(1))));
 										for (int j = 2; j < subpos.get(pos.get(i)).size(); j++) {
 											subarr.add(newFrag.substring(subpos.get(pos.get(i)).get(j - 1) + 1,
