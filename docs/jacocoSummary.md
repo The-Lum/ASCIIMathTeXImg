@@ -1,11 +1,11 @@
 |Type       |        Missed/Total|           Coverage|
 |:---       |                ---:|               ---:|
-|INSTRUCTION|(Not Changed)78/6236|(Not Changed)98.75%|
-|BRANCH     | (Not Changed)41/357|(Not Changed)88.52%|
-|LINE       | (Not Changed)11/415|(Not Changed)97.35%|
+|INSTRUCTION|(Not Changed)60/6763|(Not Changed)99.11%|
+|BRANCH     | (Not Changed)43/377|(Not Changed)88.59%|
+|LINE       | (Not Changed)10/423|(Not Changed)97.64%|
 
 Class list with less coverage (Worst 5)
 
 |Class               |Instructions(C0)|  Branches(C1)|
 |:---                |            ---:|          ---:|
-|math.ASCIIMathTeXImg| 78/6079(98.72%)|41/357(88.52%)|
+|math.ASCIIMathTeXImg| 60/6606(99.09%)|43/377(88.59%)|
