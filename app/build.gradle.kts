@@ -3,6 +3,8 @@
  * For more details on building Java & JVM projects, please refer to https://docs.gradle.org/8.6/userguide/building_java_projects.html in the Gradle documentation.
  */
 
+import java.time.LocalDate
+
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
@@ -78,6 +80,25 @@ tasks.register<Test>("runUnitTestGen") {
     filter {
         includeTestsMatching("math.TestUnitTestGen")
     }
+}
+
+tasks.register<Test>("ASCIIMathTeXImgUnitTest") {
+    description = "Runs the 'ASCIIMathTeXImgUnitTest'."
+    group = "verification"
+    useJUnitPlatform()
+    filter {
+        includeTestsMatching("math.ASCIIMathTeXImgUnitTest")
+    }
+}
+
+tasks.register<Zip>("reportZip") {
+    description = "Makes archive of reports on distib. directory."
+    group = "verification"
+    dependsOn(tasks.jacocoTestReport)
+    dependsOn(tasks.jacocoTestReportMarkdown)
+	archiveFileName = "" + LocalDate.now() + "_reports.zip"
+	destinationDirectory = layout.buildDirectory.dir("distributions")
+	from(layout.buildDirectory.dir("reports"))
 }
 
 pmd {

@@ -230,6 +230,8 @@ public class ASCIIMathTeXImg {
 			new Tupple("lt="  , "mo", "\u2264" , "leq"               , Ttype.CONST     ), //
 			new Tupple("gt="  , "mo", "\u2265" , "geq"               , Ttype.CONST     ), //
 			new Tupple(">="   , "mo", "\u2265" , "ge"                , Ttype.CONST     ), //
+			new Tupple("mlt"  , "mo", "\u226A" , "ll"                , Ttype.CONST     ), //
+			new Tupple("mgt"  , "mo", "\u226B" , "gg"                , Ttype.CONST     ), //
 			new Tupple("-<"   , "mo", "\u227A" , "prec"              , Ttype.CONST     ), //
 			new Tupple("-lt"  , "mo", "\u227A" , null                , Ttype.CONST     ), //
 			new Tupple(">-"   , "mo", "\u227B" , "succ"              , Ttype.CONST     ), //
@@ -242,8 +244,9 @@ public class ASCIIMathTeXImg {
 			new Tupple("sube" , "mo", "\u2286" , "subseteq"          , Ttype.CONST     ), //
 			new Tupple("supe" , "mo", "\u2287" , "supseteq"          , Ttype.CONST     ), //
 			new Tupple("-="   , "mo", "\u2261" , "equiv"             , Ttype.CONST     ), //
-			new Tupple("~="   , "mo", "\u2245" , "stackrel{\\sim}{=}", Ttype.CONST     ), //
+			new Tupple("~="   , "mo", "\u2245" , "stackrel{\\sim}{=}", Ttype.CONST     , Flag.NOTEXCOPY), //
 			new Tupple("cong" , "mo", "~="     , null                , Ttype.DEFINITION), //
+			new Tupple("~"    , "mo", "\u223C" , "sim"               , Ttype.CONST     ), //
 			new Tupple("~~"   , "mo", "\u2248" , "approx"            , Ttype.CONST     ), //
 			new Tupple("prop" , "mo", "\u221D" , "propto"            , Ttype.CONST     ), //
 
@@ -264,19 +267,26 @@ public class ASCIIMathTeXImg {
 			new Tupple("|=="    , "mo"   , "\u22A8", "models"        , Ttype.CONST     ), //
 
 			// grouping brackets
-			new Tupple("(" , "mo", "("     , null    , Ttype.LEFTBRACKET , Flag.VAL      ), //
-			new Tupple(")" , "mo", ")"     , null    , Ttype.RIGHTBRACKET, Flag.VAL      ), //
-			new Tupple("[" , "mo", "["     , null    , Ttype.LEFTBRACKET , Flag.VAL      ), //
-			new Tupple("]" , "mo", "]"     , null    , Ttype.RIGHTBRACKET, Flag.VAL      ), //
-			new Tupple("{" , "mo", "{"     , "lbrace", Ttype.LEFTBRACKET                 ), //
-			new Tupple("}" , "mo", "}"     , "rbrace", Ttype.RIGHTBRACKET                ), //
-			new Tupple("|" , "mo", "|"     , null    , Ttype.LEFTRIGHT   , Flag.VAL      ), //
-			new Tupple("(:", "mo", "\u2329", "langle", Ttype.LEFTBRACKET                 ), //
-			new Tupple(":)", "mo", "\u232A", "rangle", Ttype.RIGHTBRACKET                ), //
-			new Tupple("<<", "mo", "\u2329", "langle", Ttype.LEFTBRACKET                 ), //
-			new Tupple(">>", "mo", "\u232A", "rangle", Ttype.RIGHTBRACKET                ), //
-			new Tupple("{:", "mo", "{:"    , null    , Ttype.LEFTBRACKET , Flag.INVISIBLE), //
-			new Tupple(":}", "mo", ":}"    , null    , Ttype.RIGHTBRACKET, Flag.INVISIBLE), //
+			new Tupple("("      , "mo", "("      , null    , Ttype.LEFTBRACKET  , Flag.VAL                ), //
+			new Tupple(")"      , "mo", ")"      , null    , Ttype.RIGHTBRACKET , Flag.VAL                ), //
+			new Tupple("["      , "mo", "["      , null    , Ttype.LEFTBRACKET  , Flag.VAL                ), //
+			new Tupple("]"      , "mo", "]"      , null    , Ttype.RIGHTBRACKET , Flag.VAL                ), //
+			new Tupple("left("  , "mo", "("      , "("     , Ttype.LEFTBRACKET  , Flag.VAL, Flag.NOTEXCOPY), //
+			new Tupple("right)" , "mo", ")"      , ")"     , Ttype.RIGHTBRACKET , Flag.VAL, Flag.NOTEXCOPY), //
+			new Tupple("left["  , "mo", "["      , "["     , Ttype.LEFTBRACKET  , Flag.VAL, Flag.NOTEXCOPY), //
+			new Tupple("right]" , "mo", "]"      , "]"     , Ttype.RIGHTBRACKET , Flag.VAL, Flag.NOTEXCOPY), //
+			new Tupple("{"      , "mo", "{"      , "lbrace", Ttype.LEFTBRACKET                            ), //
+			new Tupple("}"      , "mo", "}"      , "rbrace", Ttype.RIGHTBRACKET                           ), //
+			new Tupple("|"      , "mo", "|"      , null    , Ttype.LEFTRIGHT    , Flag.VAL                ), //
+			new Tupple("|:"     , "mo", "|"      , "|"     , Ttype.LEFTRIGHT    , Flag.VAL, Flag.NOTEXCOPY), //
+			new Tupple(":|"     , "mo", "|"      , "|"     , Ttype.RIGHTBRACKET , Flag.VAL, Flag.NOTEXCOPY), //
+			new Tupple(":|:"    , "mo", "|"      , "|"     , Ttype.CONST        , Flag.VAL, Flag.NOTEXCOPY), //
+			new Tupple("(:"     , "mo", "\u2329" , "langle", Ttype.LEFTBRACKET                            ), //
+			new Tupple(":)"     , "mo", "\u232A" , "rangle", Ttype.RIGHTBRACKET                           ), //
+			new Tupple("<<"     , "mo", "\u2329" , "langle", Ttype.LEFTBRACKET                            ), //
+			new Tupple(">>"     , "mo", "\u232A" , "rangle", Ttype.RIGHTBRACKET                           ), //
+			new Tupple("{:"     , "mo", "{:"     , null    , Ttype.LEFTBRACKET  , Flag.INVISIBLE          ), //
+			new Tupple(":}"     , "mo", ":}"     , null    , Ttype.RIGHTBRACKET , Flag.INVISIBLE          ), //
 
 			// miscellaneous symbols
 			new Tupple("int"      , "mo", "\u222B"                   , null       , Ttype.CONST                           ), //
@@ -288,6 +298,7 @@ public class ASCIIMathTeXImg {
 			new Tupple("del"      , "mo", "\u2202"                   , "partial"  , Ttype.CONST                           ), //
 			new Tupple("grad"     , "mo", "\u2207"                   , "nabla"    , Ttype.CONST                           ), //
 			new Tupple("+-"       , "mo", "\u00B1"                   , "pm"       , Ttype.CONST                           ), //
+			new Tupple("-+"       , "mo", "\u2213"                   , "mp"       , Ttype.CONST                           ), //
 			new Tupple("O/"       , "mo", "\u2205"                   , "emptyset" , Ttype.CONST                           ), //
 			new Tupple("oo"       , "mo", "\u221E"                   , "infty"    , Ttype.CONST                           ), //
 			new Tupple("aleph"    , "mo", "\u2135"                   , null       , Ttype.CONST                           ), //
@@ -319,6 +330,7 @@ public class ASCIIMathTeXImg {
 			new Tupple("ZZ"       , "mo", "\u2124"                   , "mathbb{Z}", Ttype.CONST      , Flag.NOTEXCOPY     ), //
 			new Tupple("f"        , "mi", "f"                        , null       , Ttype.UNARY      , Flag.FUNC, Flag.VAL), //
 			new Tupple("g"        , "mi", "g"                        , null       , Ttype.UNARY      , Flag.FUNC, Flag.VAL), //
+			new Tupple("prime"    , "mo", "\u2032"                   , "'"        , Ttype.CONST      , Flag.VAL , Flag.NOTEXCOPY), //
 			new Tupple("''"       , "mo", "''"                       , null       , Ttype.CONST      , Flag.VAL           ), //
 			new Tupple("'''"      , "mo", "'''"                      , null       , Ttype.CONST      , Flag.VAL           ), //
 			new Tupple("''''"     , "mo", "''''"                     , null       , Ttype.CONST      , Flag.VAL           ), //
@@ -347,20 +359,20 @@ public class ASCIIMathTeXImg {
 			new Tupple(new String[] { "\\|"     , "\\|"      }, "norm" , "mo", "norm" , null, Ttype.UNARY, Flag.NOTEXCOPY), //
 			new Tupple(new String[] { "\\lfloor", "\\rfloor" }, "floor", "mo", "floor", null, Ttype.UNARY, Flag.NOTEXCOPY), //
 			new Tupple(new String[] { "\\lceil" , "\\rceil"  }, "ceil" , "mo", "ceil" , null, Ttype.UNARY, Flag.NOTEXCOPY), //
-			new Tupple("Sin"   , "mo", "sin"   , null, Ttype.UNARY, Flag.FUNC), //
-			new Tupple("Cos"   , "mo", "cos"   , null, Ttype.UNARY, Flag.FUNC), //
-			new Tupple("Tan"   , "mo", "tan"   , null, Ttype.UNARY, Flag.FUNC), //
-			new Tupple("Arcsin", "mo", "arcsin", null, Ttype.UNARY, Flag.FUNC), //
-			new Tupple("Arccos", "mo", "arccos", null, Ttype.UNARY, Flag.FUNC), //
-			new Tupple("Arctan", "mo", "arctan", null, Ttype.UNARY, Flag.FUNC), //
-			new Tupple("Sinh"  , "mo", "sinh"  , null, Ttype.UNARY, Flag.FUNC), //
-			new Tupple("Sosh"  , "mo", "cosh"  , null, Ttype.UNARY, Flag.FUNC), //
-			new Tupple("Tanh"  , "mo", "tanh"  , null, Ttype.UNARY, Flag.FUNC), //
-			new Tupple("Cot"   , "mo", "cot"   , null, Ttype.UNARY, Flag.FUNC), //
-			new Tupple("Sec"   , "mo", "sec"   , null, Ttype.UNARY, Flag.FUNC), //
-			new Tupple("Csc"   , "mo", "csc"   , null, Ttype.UNARY, Flag.FUNC), //
-			new Tupple("Log"   , "mo", "log"   , null, Ttype.UNARY, Flag.FUNC), //
-			new Tupple("Ln"    , "mo", "ln"    , null, Ttype.UNARY, Flag.FUNC), //
+			new Tupple("Sin"   , "mo", "Sin"   , null, Ttype.UNARY, Flag.FUNC), //
+			new Tupple("Cos"   , "mo", "Cos"   , null, Ttype.UNARY, Flag.FUNC), //
+			new Tupple("Tan"   , "mo", "Tan"   , null, Ttype.UNARY, Flag.FUNC), //
+			new Tupple("Arcsin", "mo", "Arcsin", null, Ttype.UNARY, Flag.FUNC), //
+			new Tupple("Arccos", "mo", "Arccos", null, Ttype.UNARY, Flag.FUNC), //
+			new Tupple("Arctan", "mo", "Arctan", null, Ttype.UNARY, Flag.FUNC), //
+			new Tupple("Sinh"  , "mo", "Sinh"  , null, Ttype.UNARY, Flag.FUNC), //
+			new Tupple("Cosh"  , "mo", "Cosh"  , null, Ttype.UNARY, Flag.FUNC), //
+			new Tupple("Tanh"  , "mo", "Tanh"  , null, Ttype.UNARY, Flag.FUNC), //
+			new Tupple("Cot"   , "mo", "Cot"   , null, Ttype.UNARY, Flag.FUNC), //
+			new Tupple("Sec"   , "mo", "Sec"   , null, Ttype.UNARY, Flag.FUNC), //
+			new Tupple("Csc"   , "mo", "Csc"   , null, Ttype.UNARY, Flag.FUNC), //
+			new Tupple("Log"   , "mo", "Log"   , null, Ttype.UNARY, Flag.FUNC), //
+			new Tupple("Ln"    , "mo", "Ln"    , null, Ttype.UNARY, Flag.FUNC), //
 			new Tupple(new String[] { "|", "|" }, "Abs", "mo", "abs", null, Ttype.UNARY, Flag.NOTEXCOPY), //
 			new Tupple("det", "mo", "det", null       , Ttype.UNARY    , Flag.FUNC                ), //
 			new Tupple("exp", "mo", "exp", null       , Ttype.UNARY    , Flag.FUNC                ), //
@@ -384,25 +396,42 @@ public class ASCIIMathTeXImg {
 			new Tupple("|->" , "mo", "\u21A6", "mapsto"               , Ttype.CONST), //
 			new Tupple("larr", "mo", "\u2190", "leftarrow"            , Ttype.CONST), //
 			new Tupple("harr", "mo", "\u2194", "leftrightarrow"       , Ttype.CONST), //
+			new Tupple("uArr", "mo", "\u21D1", "Uparrow"              , Ttype.CONST), //
+			new Tupple("dArr", "mo", "\u21D3", "Downarrow"            , Ttype.CONST), //
 			new Tupple("rArr", "mo", "\u21D2", "Rightarrow"           , Ttype.CONST), //
 			new Tupple("lArr", "mo", "\u21D0", "Leftarrow"            , Ttype.CONST), //
 			new Tupple("hArr", "mo", "\u21D4", "Leftrightarrow"       , Ttype.CONST), //
 
+
 			// commands with argument
 			aAMsqrt, aAMroot, aAMfrac, aAMdiv, aAMover, aAMsub, aAMsup,
-			new Tupple("cancel", "menclose", "cancel", null        , Ttype.UNARY          ), //
-			new Tupple("Sqrt"  , "msqrt"   , "sqrt"  , null        , Ttype.UNARY          ), //
-			new Tupple("hat"   , "mover"   , "\u005E", null        , Ttype.UNARY, Flag.ACC), //
-			new Tupple("bar"   , "mover"   , "\u00AF", "overline"  , Ttype.UNARY, Flag.ACC), //
-			new Tupple("vec"   , "mover"   , "\u2192", null        , Ttype.UNARY, Flag.ACC), //
-			new Tupple("tilde" , "mover"   , "~"     , null        , Ttype.UNARY, Flag.ACC), //
-			new Tupple("dot"   , "mover"   , "."     , null        , Ttype.UNARY, Flag.ACC), //
-			new Tupple("ddot"  , "mover"   , ".."    , null        , Ttype.UNARY, Flag.ACC), //
-			new Tupple("ul"    , "munder"  , "\u0332", "underline" , Ttype.UNARY, Flag.ACC), //
-			new Tupple("ubrace", "munder"  , "\u23DF", "underbrace", Ttype.UNARY, Flag.ACC), //
-			new Tupple("obrace", "mover"   , "\u23DE", "overbrace" , Ttype.UNARY, Flag.ACC), //
+			new Tupple("cancel"   , "menclose", "cancel", null               , Ttype.UNARY                          ), //
+			new Tupple("Sqrt"     , "msqrt"   , "sqrt"  , null               , Ttype.UNARY                          ), //
+			new Tupple("hat"      , "mover"   , "\u005E", null               , Ttype.UNARY, Flag.ACC                ), //
+			new Tupple("bar"      , "mover"   , "\u00AF", "overline"         , Ttype.UNARY, Flag.ACC                ), //
+			new Tupple("vec"      , "mover"   , "\u2192", null               , Ttype.UNARY, Flag.ACC                ), //
+			new Tupple("tilde"    , "mover"   , "~"     , null               , Ttype.UNARY, Flag.ACC                ), //
+			new Tupple("dot"      , "mover"   , "."     , null               , Ttype.UNARY, Flag.ACC                ), //
+			new Tupple("ddot"     , "mover"   , ".."    , null               , Ttype.UNARY, Flag.ACC                ), //
+			new Tupple("overarc"  , "mover"   , "\u23DC", "stackrel{\\frown}", Ttype.UNARY, Flag.ACC, Flag.NOTEXCOPY), //
+			new Tupple("overparen", "mover"   , "\u23DC", "stackrel{\\frown}", Ttype.UNARY, Flag.ACC, Flag.NOTEXCOPY), //
+			new Tupple("ul"       , "munder"  , "\u0332", "underline"        , Ttype.UNARY, Flag.ACC                ), //
+			new Tupple("ubrace"   , "munder"  , "\u23DF", "underbrace"       , Ttype.UNARY, Flag.ACC                ), //
+			new Tupple("obrace"   , "mover"   , "\u23DE", "overbrace"        , Ttype.UNARY, Flag.ACC                ), //
 			aAMtext, aAMmbox, aAMquote, //
-			new Tupple("color", "mstyle", null, null, Ttype.BINARY), //
+			new Tupple("color"   , "mstyle", null      , null      , Ttype.BINARY                ), //
+			new Tupple("bb"      , "mstyle", "bb"      , "mathbf"  , Ttype.UNARY , Flag.NOTEXCOPY), //
+			new Tupple("mathbf"  , "mstyle", "mathbf"  , null      , Ttype.UNARY                 ), //
+			new Tupple("sf"      , "mstyle", "sf"      , "mathsf"  , Ttype.UNARY , Flag.NOTEXCOPY), //
+			new Tupple("mathsf"  , "mstyle", "mathsf"  , null      , Ttype.UNARY                 ), //
+			new Tupple("bbb"     , "mstyle", "bbb"     , "mathbb"  , Ttype.UNARY , Flag.NOTEXCOPY), //
+			new Tupple("mathbb"  , "mstyle", "mathbb"  , null      , Ttype.UNARY                 ), //
+			new Tupple("cc"      , "mstyle", "cc"      , "mathcal" , Ttype.UNARY , Flag.NOTEXCOPY), //
+			new Tupple("mathcal" , "mstyle", "mathcal" , null      , Ttype.UNARY                 ), //
+			new Tupple("tt"      , "mstyle", "tt"      , "mathtt"  , Ttype.UNARY , Flag.NOTEXCOPY), //
+			new Tupple("mathtt"  , "mstyle", "mathtt"  , null      , Ttype.UNARY                 ), //
+			new Tupple("fr"      , "mstyle", "fr"      , "mathfrak", Ttype.UNARY , Flag.NOTEXCOPY), //
+			new Tupple("mathfrak", "mstyle", "mathfrak", null      , Ttype.UNARY                 ), //
 	} //
 	));
 
@@ -525,7 +554,7 @@ public class ASCIIMathTeXImg {
 			tagst = (("A".compareTo(st) > 0 || st.compareTo("Z") > 0)
 					&& ("a".compareTo(st) > 0 || st.compareTo("z") > 0) ? "mo" : "mi");
 		}
-		if (st.equals("-") && aAMpreviousSymbol == Ttype.INFIX) {
+		if (st.equals("-") && str.length() > 1 && str.charAt(1) != ' ' && aAMpreviousSymbol == Ttype.INFIX) {
 			aAMcurrentSymbol = Ttype.INFIX;
 			return new Tupple(st, tagst, st, null, Ttype.UNARY, Flag.FUNC, Flag.VAL);
 		}
@@ -555,7 +584,7 @@ public class ASCIIMathTeXImg {
 					leftchop = 2;
 				}
 			}
-			if (leftchop > 0) {
+			if (leftchop > 0 && node.length() > 8) {
 				st = node.substring(node.length() - 8);
 				if (st.equals("\\right)}") || st.equals("\\right]}") || st.equals("\\right.}")) {
 					node = "{" + node.substring(leftchop);
@@ -737,7 +766,7 @@ public class ASCIIMathTeXImg {
 			result = aAMTparseExpr(str, false);
 			aAMnestingDepth--;
 			st = "" + result[0].charAt(result[0].length() - 1);
-			if (st.equals("|")) { // its an absolute value subterm
+			if (st.equals("|") && str.charAt(0) != ',') { // its an absolute value subterm
 				node = "{\\left|" + result[0] + "}";
 				return new String[] { node, result[1] };
 			} else { // the "|" is a \mid
@@ -791,7 +820,8 @@ public class ASCIIMathTeXImg {
 			}
 			if (sym1.hasFlag(Flag.FUNC)) {
 				sym2 = aAMgetSymbol(str);
-				if (sym2.ttype != Ttype.INFIX && sym2.ttype != Ttype.RIGHTBRACKET) {
+				if (sym2.ttype != Ttype.INFIX && sym2.ttype != Ttype.RIGHTBRACKET &&
+					(sym1.input.length() > 1 || sym2.ttype == Ttype.LEFTBRACKET)) {
 					result = aAMTparseIexpr(str);
 					node = "{" + node + result[0] + "}";
 					str = result[1];
@@ -842,7 +872,7 @@ public class ASCIIMathTeXImg {
 				if (right == ')' || right == ']') {
 					char left = newFrag.charAt(6);
 					if ((left == '(' && right == ')' && !symbol.output.equals("}")) || (left == '[' && right == ']')) {
-						String mxout = "\\begin{matrix}";
+						String mxout = "";
 						List<Integer> pos = new ArrayList<>(); // position of commas
 						pos.add(0);
 						boolean matrix = true;
@@ -851,6 +881,7 @@ public class ASCIIMathTeXImg {
 						subpos.add(new ArrayList<>(Arrays.asList(0)));
 						int lastsubposstart = 0;
 						int mxanynestingd = 0;
+						String columnaligns = "";
 
 						for (int i = 1; i < len - 1; i++) {
 							if (newFrag.charAt(i) == left)
@@ -923,6 +954,16 @@ public class ASCIIMathTeXImg {
 												subpos.get(pos.get(i)).get(subpos.get(pos.get(i)).size() - 1) + 1,
 												pos.get(i + 1) - 8));
 									}
+								} 
+								for (int j = subarr.size() - 1; j >= 0; j--) {
+									if (subarr.get(j) == "{\\mid}") {
+										if (i == 0) {
+											columnaligns = "|" + columnaligns;
+										}
+										//subarr.splice(j,1);
+									} else if (i == 0) {
+										columnaligns = "c" + columnaligns;
+									}
 								}
 								if (lastmxsubcnt > 0 && subarr.size() != lastmxsubcnt) {
 									matrix = false;
@@ -937,7 +978,7 @@ public class ASCIIMathTeXImg {
 								}
 							}
 						}
-						mxout += "\\end{matrix}";
+						mxout = "\\begin{array}{" + columnaligns + "} " + mxout + "\\end{array}";
 
 						if (matrix) {
 							newFrag = mxout;

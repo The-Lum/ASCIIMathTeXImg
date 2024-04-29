@@ -231,7 +231,7 @@ class TestUnitTestGen {
 		"pm",
 		"prec",
 		"preceq",
-		"prime",
+		//"prime",
 		"prod",
 		"prop",
 		"propto",
@@ -432,6 +432,7 @@ class TestUnitTestGen {
 		"3_2/4_2",
 		"3_2^3/4_2",
 		"vecx/hat3+vecx^2+(vec x)^2 + vec(x^2)",
+
 //negative handling
 		"-3-4",
 		"'(-3,-4)'",
@@ -448,13 +449,13 @@ class TestUnitTestGen {
 		"{:{:x:}:}",
 		"{:1+{:x:}+3:}",
 
-//issue37
+//issue 37
 		"'(:2,3]'",
 		"'[2,3rangle'",
 		"'2,3)'",
 		"'(2,3'",
 
-//issue42
+//issue 42
 		"'[(1,2,3,|,4),(5,6,7, |,8)]'",
 		"'[(1,2,3, | ,4,5),(5,6,7, | ,8,9)]'",
 		"'[(1,|,2,3,4),(5,|,6,7,8)]'",
@@ -469,13 +470,13 @@ class TestUnitTestGen {
 		"'|x/2+3|,|x-4/5|'",
 		"'int_2^4 2x dx = x^2|_2^4'",
 
-//issue74
+//issue 74
 		"3+sin(x)/5-2Sin(x)",
 		"5+sin(x)+Sin(x)+\"test Since\"",
 		"Log(x)/3 +log(x)/3",
 		"Abs(3) + abs(3)",
 
-//issue86
+//issue 86
 		"3 + id(hi)(x^2)+class(red)(4)",
 
 //issue 94
@@ -489,17 +490,18 @@ class TestUnitTestGen {
 		"'[[1,2]]/4'",
 		"'(x+2)/3'",
 
-// issue 114
+// issue 114 (PR 116)
 		"u_-3 + u_- 3",
 		"2^- +3",
 
-// sim
+// sim (issue 117, PR 122)
 		"'3~2,5sim4'",
-//overparen
+
+//overparen (PR 87)
 		"overparen(AB)",
 		"overarc(AB)",
 
-//mp
+//mp (issue 93, PR 123)
 		"(x-+5)(xmp5)",
 
 //bad/incomplete input
@@ -509,12 +511,40 @@ class TestUnitTestGen {
 		"/4",
 		"lim_(x rarr 2^-) f(x)",
 
+// issue 58 (PR 61)
+		"1/2*(:A:|*1/2 text(bra)",
+		"1/2*|:B:)*1/2 text(ket)",
+		"1/2*(:A:|:B:)*1/2 text(bra-ket)",
+		"1/2*(:A:|:B:|:C:)*1/2 text(sandwich)",
+		"1/(2/3)*(:1/2*D:|:E:)*4/(5/6) text(stretch)",
+
+// issue 77
+		"vec(x)",
+		"vecx",
+		"vecxyz",
+		"vec(xyx)",
+		"vec(x+y)",
+		"vec(sqrt(x))",
+		"vecsqrtx",
+		"vecsqrt3",
+		"vec\"F\"",
+		"hat(x)",
+		"hatx",
+		"hatxyz",
+		"hat(xyx)",
+		"ul(x)",
+		"ulx",
+		"ulxyz",
+		"ul(xyx)",
+// issue 130
+		"vec()",
+
 // new tests for code coverage
 		"text(f)",
 		"text({f})",
 		"text([f])",
 		"text(  a)",
-		"text(  a  )",
+		"text(  a  )b",
 		"text<a>",
 		"text<a >",
 		"text{f}",
@@ -522,13 +552,25 @@ class TestUnitTestGen {
 		"text{f",
 		"text[f",
 		"text{f abc",
+
+// prime
+		"f'",
+		"fprime",
+		"f''",
+		"f'''",
+
+// Arrow (PR 138)
+		"uArr",
+		"dArr",
 	})
 	void test(String input) {
 		String res = cut.getTeX(input);
 		input = input.replace("\\","\\\\");
 		input = input.replace("\"", "\\\"");
 		res = res.replace("\\","\\\\");
-		System.out.printf("\t\" %-57s, '%s' \",%n", "'"+input+"'", res);
+		if (input.contains(",")) input = "'"+input+"'";
+		if (res.contains(",")) res = "'"+res+"'";
+		System.out.printf("\t\" %-57s, %s \",%n", input, res);
 		assertNotNull(res, "Result must be not null");
 	}
 
