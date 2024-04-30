@@ -960,7 +960,7 @@ public class ASCIIMathTeXImg {
 										if (i == 0) {
 											columnaligns = "|" + columnaligns;
 										}
-										//subarr.splice(j,1);
+										subarr.remove(j);
 									} else if (i == 0) {
 										columnaligns = "c" + columnaligns;
 									}
