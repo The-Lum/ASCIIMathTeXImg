@@ -956,7 +956,7 @@ public class ASCIIMathTeXImg {
 									}
 								} 
 								for (int j = subarr.size() - 1; j >= 0; j--) {
-									if (subarr.get(j) == "{\\mid}") {
+									if (subarr.get(j).equals("{\\mid}")) {
 										if (i == 0) {
 											columnaligns = "|" + columnaligns;
 										}
