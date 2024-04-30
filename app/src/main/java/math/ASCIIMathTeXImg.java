@@ -103,7 +103,7 @@ public class ASCIIMathTeXImg {
 		ACC, VAL, FUNC, INVISIBLE, NOTEXCOPY;
 	}
 
-	static class Tupple {
+	static class Tuple {
 		private final String input;
 		private final String tag;
 		private final String output;
@@ -113,7 +113,7 @@ public class ASCIIMathTeXImg {
 		private final String[] rewriteleftright;
 		private final Collection<Flag> flags;
 
-		private Tupple(String[] rewriteleftright, String input, String tag, String output, String tex, Ttype ttype,
+		private Tuple(String[] rewriteleftright, String input, String tag, String output, String tex, Ttype ttype,
 				Flag... flags) {
 			this.input = input;
 			this.tag = tag;
@@ -124,7 +124,7 @@ public class ASCIIMathTeXImg {
 			this.rewriteleftright = rewriteleftright;
 		}
 
-		private Tupple(String input, String tag, String output, String tex, Ttype ttype, Flag... flags) {
+		private Tuple(String input, String tag, String output, String tex, Ttype ttype, Flag... flags) {
 			this.input = input;
 			this.tag = tag;
 			this.output = output;
@@ -139,299 +139,299 @@ public class ASCIIMathTeXImg {
 		}
 	}
 
-	private static final Tupple aAMsqrt  = new Tupple("sqrt"    , "msqrt", "sqrt"    , null, Ttype.UNARY );
-	private static final Tupple aAMroot  = new Tupple("root"    , "mroot", "root"    , null, Ttype.BINARY);
-	private static final Tupple aAMfrac  = new Tupple("frac"    , "mfrac", "/"       , null, Ttype.BINARY);
-	private static final Tupple aAMdiv   = new Tupple("/"       , "mfrac", "/"       , null, Ttype.INFIX );
-	private static final Tupple aAMover  = new Tupple("stackrel", "mover", "stackrel", null, Ttype.BINARY);
-	private static final Tupple aAMsub   = new Tupple("_"       , "msub" , "_"       , null, Ttype.INFIX );
-	private static final Tupple aAMsup   = new Tupple("^"       , "msup" , "^"       , null, Ttype.INFIX );
-	private static final Tupple aAMtext  = new Tupple("text"    , "mtext", "text"    , null, Ttype.TEXT  );
-	private static final Tupple aAMmbox  = new Tupple("mbox"    , "mtext", "mbox"    , null, Ttype.TEXT  );
-	private static final Tupple aAMquote = new Tupple("\""      , "mtext", "mbox"    , null, Ttype.TEXT  );
+	private static final Tuple aAMsqrt  = new Tuple("sqrt"    , "msqrt", "sqrt"    , null, Ttype.UNARY );
+	private static final Tuple aAMroot  = new Tuple("root"    , "mroot", "root"    , null, Ttype.BINARY);
+	private static final Tuple aAMfrac  = new Tuple("frac"    , "mfrac", "/"       , null, Ttype.BINARY);
+	private static final Tuple aAMdiv   = new Tuple("/"       , "mfrac", "/"       , null, Ttype.INFIX );
+	private static final Tuple aAMover  = new Tuple("stackrel", "mover", "stackrel", null, Ttype.BINARY);
+	private static final Tuple aAMsub   = new Tuple("_"       , "msub" , "_"       , null, Ttype.INFIX );
+	private static final Tuple aAMsup   = new Tuple("^"       , "msup" , "^"       , null, Ttype.INFIX );
+	private static final Tuple aAMtext  = new Tuple("text"    , "mtext", "text"    , null, Ttype.TEXT  );
+	private static final Tuple aAMmbox  = new Tuple("mbox"    , "mtext", "mbox"    , null, Ttype.TEXT  );
+	private static final Tuple aAMquote = new Tuple("\""      , "mtext", "mbox"    , null, Ttype.TEXT  );
 
-	private static final List<Tupple> aAMsymbols = new ArrayList<>(Arrays.asList(new Tupple[] { //
+	private static final List<Tuple> aAMsymbols = new ArrayList<>(Arrays.asList(new Tuple[] { //
 			// some greek symbols
-			new Tupple("alpha"     , "mi", "\u03B1", null     , Ttype.CONST     ), //
-			new Tupple("beta"      , "mi", "\u03B2", null     , Ttype.CONST     ), //
-			new Tupple("chi"       , "mi", "\u03C7", null     , Ttype.CONST     ), //
-			new Tupple("delta"     , "mi", "\u03B4", null     , Ttype.CONST     ), //
-			new Tupple("Delta"     , "mo", "\u0394", null     , Ttype.CONST     ), //
-			new Tupple("epsi"      , "mi", "\u03B5", "epsilon", Ttype.CONST     ), //
-			new Tupple("varepsilon", "mi", "\u025B", null     , Ttype.CONST     ), //
-			new Tupple("eta"       , "mi", "\u03B7", null     , Ttype.CONST     ), //
-			new Tupple("gamma"     , "mi", "\u03B3", null     , Ttype.CONST     ), //
-			new Tupple("Gamma"     , "mo", "\u0393", null     , Ttype.CONST     ), //
-			new Tupple("iota"      , "mi", "\u03B9", null     , Ttype.CONST     ), //
-			new Tupple("kappa"     , "mi", "\u03BA", null     , Ttype.CONST     ), //
-			new Tupple("lambda"    , "mi", "\u03BB", null     , Ttype.CONST     ), //
-			new Tupple("Lambda"    , "mo", "\u039B", null     , Ttype.CONST     ), //
-			new Tupple("lamda"     , "mi", "lambda", null     , Ttype.DEFINITION), //
-			new Tupple("Lamda"     , "mi", "Lambda", null     , Ttype.DEFINITION), //
-			new Tupple("mu"        , "mi", "\u03BC", null     , Ttype.CONST     ), //
-			new Tupple("nu"        , "mi", "\u03BD", null     , Ttype.CONST     ), //
-			new Tupple("omega"     , "mi", "\u03C9", null     , Ttype.CONST     ), //
-			new Tupple("Omega"     , "mo", "\u03A9", null     , Ttype.CONST     ), //
-			new Tupple("phi"       , "mi", "\u03C6", null     , Ttype.CONST     ), //
-			new Tupple("varphi"    , "mi", "\u03D5", null     , Ttype.CONST     ), //
-			new Tupple("Phi"       , "mo", "\u03A6", null     , Ttype.CONST     ), //
-			new Tupple("pi"        , "mi", "\u03C0", null     , Ttype.CONST     ), //
-			new Tupple("Pi"        , "mo", "\u03A0", null     , Ttype.CONST     ), //
-			new Tupple("psi"       , "mi", "\u03C8", null     , Ttype.CONST     ), //
-			new Tupple("Psi"       , "mi", "\u03A8", null     , Ttype.CONST     ), //
-			new Tupple("rho"       , "mi", "\u03C1", null     , Ttype.CONST     ), //
-			new Tupple("sigma"     , "mi", "\u03C3", null     , Ttype.CONST     ), //
-			new Tupple("Sigma"     , "mo", "\u03A3", null     , Ttype.CONST     ), //
-			new Tupple("tau"       , "mi", "\u03C4", null     , Ttype.CONST     ), //
-			new Tupple("theta"     , "mi", "\u03B8", null     , Ttype.CONST     ), //
-			new Tupple("vartheta"  , "mi", "\u03D1", null     , Ttype.CONST     ), //
-			new Tupple("Theta"     , "mo", "\u0398", null     , Ttype.CONST     ), //
-			new Tupple("upsilon"   , "mi", "\u03C5", null     , Ttype.CONST     ), //
-			new Tupple("xi"        , "mi", "\u03BE", null     , Ttype.CONST     ), //
-			new Tupple("Xi"        , "mo", "\u039E", null     , Ttype.CONST     ), //
-			new Tupple("zeta"      , "mi", "\u03B6", null     , Ttype.CONST     ), //
+			new Tuple("alpha"     , "mi", "\u03B1", null     , Ttype.CONST     ), //
+			new Tuple("beta"      , "mi", "\u03B2", null     , Ttype.CONST     ), //
+			new Tuple("chi"       , "mi", "\u03C7", null     , Ttype.CONST     ), //
+			new Tuple("delta"     , "mi", "\u03B4", null     , Ttype.CONST     ), //
+			new Tuple("Delta"     , "mo", "\u0394", null     , Ttype.CONST     ), //
+			new Tuple("epsi"      , "mi", "\u03B5", "epsilon", Ttype.CONST     ), //
+			new Tuple("varepsilon", "mi", "\u025B", null     , Ttype.CONST     ), //
+			new Tuple("eta"       , "mi", "\u03B7", null     , Ttype.CONST     ), //
+			new Tuple("gamma"     , "mi", "\u03B3", null     , Ttype.CONST     ), //
+			new Tuple("Gamma"     , "mo", "\u0393", null     , Ttype.CONST     ), //
+			new Tuple("iota"      , "mi", "\u03B9", null     , Ttype.CONST     ), //
+			new Tuple("kappa"     , "mi", "\u03BA", null     , Ttype.CONST     ), //
+			new Tuple("lambda"    , "mi", "\u03BB", null     , Ttype.CONST     ), //
+			new Tuple("Lambda"    , "mo", "\u039B", null     , Ttype.CONST     ), //
+			new Tuple("lamda"     , "mi", "lambda", null     , Ttype.DEFINITION), //
+			new Tuple("Lamda"     , "mi", "Lambda", null     , Ttype.DEFINITION), //
+			new Tuple("mu"        , "mi", "\u03BC", null     , Ttype.CONST     ), //
+			new Tuple("nu"        , "mi", "\u03BD", null     , Ttype.CONST     ), //
+			new Tuple("omega"     , "mi", "\u03C9", null     , Ttype.CONST     ), //
+			new Tuple("Omega"     , "mo", "\u03A9", null     , Ttype.CONST     ), //
+			new Tuple("phi"       , "mi", "\u03C6", null     , Ttype.CONST     ), //
+			new Tuple("varphi"    , "mi", "\u03D5", null     , Ttype.CONST     ), //
+			new Tuple("Phi"       , "mo", "\u03A6", null     , Ttype.CONST     ), //
+			new Tuple("pi"        , "mi", "\u03C0", null     , Ttype.CONST     ), //
+			new Tuple("Pi"        , "mo", "\u03A0", null     , Ttype.CONST     ), //
+			new Tuple("psi"       , "mi", "\u03C8", null     , Ttype.CONST     ), //
+			new Tuple("Psi"       , "mi", "\u03A8", null     , Ttype.CONST     ), //
+			new Tuple("rho"       , "mi", "\u03C1", null     , Ttype.CONST     ), //
+			new Tuple("sigma"     , "mi", "\u03C3", null     , Ttype.CONST     ), //
+			new Tuple("Sigma"     , "mo", "\u03A3", null     , Ttype.CONST     ), //
+			new Tuple("tau"       , "mi", "\u03C4", null     , Ttype.CONST     ), //
+			new Tuple("theta"     , "mi", "\u03B8", null     , Ttype.CONST     ), //
+			new Tuple("vartheta"  , "mi", "\u03D1", null     , Ttype.CONST     ), //
+			new Tuple("Theta"     , "mo", "\u0398", null     , Ttype.CONST     ), //
+			new Tuple("upsilon"   , "mi", "\u03C5", null     , Ttype.CONST     ), //
+			new Tuple("xi"        , "mi", "\u03BE", null     , Ttype.CONST     ), //
+			new Tuple("Xi"        , "mo", "\u039E", null     , Ttype.CONST     ), //
+			new Tuple("zeta"      , "mi", "\u03B6", null     , Ttype.CONST     ), //
 
 			// binary operation symbols
-			new Tupple("*"       , "mo"    , "\u22C5"  , "cdot"     , Ttype.CONST                                ), //
-			new Tupple("**"      , "mo"    , "\u2217"  , "ast"      , Ttype.CONST                                ), //
-			new Tupple("***"     , "mo"    , "\u22C6"  , "star"     , Ttype.CONST                                ), //
-			new Tupple("//"      , "mo"    , "/"       , "/"        , Ttype.CONST      , Flag.VAL, Flag.NOTEXCOPY), //
-			new Tupple("\\\\"    , "mo"    , "\\"      , "backslash", Ttype.CONST                                ), //
-			new Tupple("setminus", "mo"    , "\\"      , null       , Ttype.CONST                                ), //
-			new Tupple("xx"      , "mo"    , "\u00D7"  , "times"    , Ttype.CONST                                ), //
-			new Tupple("|><"     , "mo"    , "\u22C9"  , "ltimes"   , Ttype.CONST                                ), //
-			new Tupple("><|"     , "mo"    , "\u22CA"  , "rtimes"   , Ttype.CONST                                ), //
-			new Tupple("|><|"    , "mo"    , "\u22C8"  , "bowtie"   , Ttype.CONST                                ), //
-			new Tupple("-:"      , "mo"    , "\u00F7"  , "div"      , Ttype.CONST                                ), //
-			new Tupple("divide"  , "mo"    , "-:"      , null       , Ttype.DEFINITION                           ), //
-			new Tupple("@"       , "mo"    , "\u2218"  , "circ"     , Ttype.CONST                                ), //
-			new Tupple("o+"      , "mo"    , "\u2295"  , "oplus"    , Ttype.CONST                                ), //
-			new Tupple("ox"      , "mo"    , "\u2297"  , "otimes"   , Ttype.CONST                                ), //
-			new Tupple("o."      , "mo"    , "\u2299"  , "odot"     , Ttype.CONST                                ), //
-			new Tupple("sum"     , "mo"    , "\u2211"  , null       , Ttype.UNDEROVER                            ), //
-			new Tupple("prod"    , "mo"    , "\u220F"  , null       , Ttype.UNDEROVER                            ), //
-			new Tupple("^^"      , "mo"    , "\u2227"  , "wedge"    , Ttype.CONST                                ), //
-			new Tupple("^^^"     , "mo"    , "\u22C0"  , "bigwedge" , Ttype.UNDEROVER                            ), //
-			new Tupple("vv"      , "mo"    , "\u2228"  , "vee"      , Ttype.CONST                                ), //
-			new Tupple("vvv"     , "mo"    , "\u22C1"  , "bigvee"   , Ttype.UNDEROVER                            ), //
-			new Tupple("nn"      , "mo"    , "\u2229"  , "cap"      , Ttype.CONST                                ), //
-			new Tupple("nnn"     , "mo"    , "\u22C2"  , "bigcap"   , Ttype.UNDEROVER                            ), //
-			new Tupple("uu"      , "mo"    , "\u222A"  , "cup"      , Ttype.CONST                                ), //
-			new Tupple("uuu"     , "mo"    , "\u22C3"  , "bigcup"   , Ttype.UNDEROVER                            ), //
-			new Tupple("overset" , "mover" , "stackrel", null       , Ttype.BINARY                               ), //
-			new Tupple("underset", "munder", "stackrel", null       , Ttype.BINARY                               ), //
+			new Tuple("*"       , "mo"    , "\u22C5"  , "cdot"     , Ttype.CONST                                ), //
+			new Tuple("**"      , "mo"    , "\u2217"  , "ast"      , Ttype.CONST                                ), //
+			new Tuple("***"     , "mo"    , "\u22C6"  , "star"     , Ttype.CONST                                ), //
+			new Tuple("//"      , "mo"    , "/"       , "/"        , Ttype.CONST      , Flag.VAL, Flag.NOTEXCOPY), //
+			new Tuple("\\\\"    , "mo"    , "\\"      , "backslash", Ttype.CONST                                ), //
+			new Tuple("setminus", "mo"    , "\\"      , null       , Ttype.CONST                                ), //
+			new Tuple("xx"      , "mo"    , "\u00D7"  , "times"    , Ttype.CONST                                ), //
+			new Tuple("|><"     , "mo"    , "\u22C9"  , "ltimes"   , Ttype.CONST                                ), //
+			new Tuple("><|"     , "mo"    , "\u22CA"  , "rtimes"   , Ttype.CONST                                ), //
+			new Tuple("|><|"    , "mo"    , "\u22C8"  , "bowtie"   , Ttype.CONST                                ), //
+			new Tuple("-:"      , "mo"    , "\u00F7"  , "div"      , Ttype.CONST                                ), //
+			new Tuple("divide"  , "mo"    , "-:"      , null       , Ttype.DEFINITION                           ), //
+			new Tuple("@"       , "mo"    , "\u2218"  , "circ"     , Ttype.CONST                                ), //
+			new Tuple("o+"      , "mo"    , "\u2295"  , "oplus"    , Ttype.CONST                                ), //
+			new Tuple("ox"      , "mo"    , "\u2297"  , "otimes"   , Ttype.CONST                                ), //
+			new Tuple("o."      , "mo"    , "\u2299"  , "odot"     , Ttype.CONST                                ), //
+			new Tuple("sum"     , "mo"    , "\u2211"  , null       , Ttype.UNDEROVER                            ), //
+			new Tuple("prod"    , "mo"    , "\u220F"  , null       , Ttype.UNDEROVER                            ), //
+			new Tuple("^^"      , "mo"    , "\u2227"  , "wedge"    , Ttype.CONST                                ), //
+			new Tuple("^^^"     , "mo"    , "\u22C0"  , "bigwedge" , Ttype.UNDEROVER                            ), //
+			new Tuple("vv"      , "mo"    , "\u2228"  , "vee"      , Ttype.CONST                                ), //
+			new Tuple("vvv"     , "mo"    , "\u22C1"  , "bigvee"   , Ttype.UNDEROVER                            ), //
+			new Tuple("nn"      , "mo"    , "\u2229"  , "cap"      , Ttype.CONST                                ), //
+			new Tuple("nnn"     , "mo"    , "\u22C2"  , "bigcap"   , Ttype.UNDEROVER                            ), //
+			new Tuple("uu"      , "mo"    , "\u222A"  , "cup"      , Ttype.CONST                                ), //
+			new Tuple("uuu"     , "mo"    , "\u22C3"  , "bigcup"   , Ttype.UNDEROVER                            ), //
+			new Tuple("overset" , "mover" , "stackrel", null       , Ttype.BINARY                               ), //
+			new Tuple("underset", "munder", "stackrel", null       , Ttype.BINARY                               ), //
 
 			// binary relation symbols
-			new Tupple("!="   , "mo", "\u2260" , "ne"                , Ttype.CONST     ), //
-			new Tupple(":="   , "mo", ":="     , null                , Ttype.CONST     ), //
-			new Tupple("lt"   , "mo", "<"      , null                , Ttype.CONST     ), //
-			new Tupple("gt"   , "mo", ">"      , null                , Ttype.CONST     ), //
-			new Tupple("<="   , "mo", "\u2264" , "le"                , Ttype.CONST     ), //
-			new Tupple("lt="  , "mo", "\u2264" , "leq"               , Ttype.CONST     ), //
-			new Tupple("gt="  , "mo", "\u2265" , "geq"               , Ttype.CONST     ), //
-			new Tupple(">="   , "mo", "\u2265" , "ge"                , Ttype.CONST     ), //
-			new Tupple("mlt"  , "mo", "\u226A" , "ll"                , Ttype.CONST     ), //
-			new Tupple("mgt"  , "mo", "\u226B" , "gg"                , Ttype.CONST     ), //
-			new Tupple("-<"   , "mo", "\u227A" , "prec"              , Ttype.CONST     ), //
-			new Tupple("-lt"  , "mo", "\u227A" , null                , Ttype.CONST     ), //
-			new Tupple(">-"   , "mo", "\u227B" , "succ"              , Ttype.CONST     ), //
-			new Tupple("-<="  , "mo", "\u2AAF" , "preceq"            , Ttype.CONST     ), //
-			new Tupple(">-="  , "mo", "\u2AB0" , "succeq"            , Ttype.CONST     ), //
-			new Tupple("in"   , "mo", "\u2208" , null                , Ttype.CONST     ), //
-			new Tupple("!in"  , "mo", "\u2209" , "notin"             , Ttype.CONST     ), //
-			new Tupple("sub"  , "mo", "\u2282" , "subset"            , Ttype.CONST     ), //
-			new Tupple("sup"  , "mo", "\u2283" , "supset"            , Ttype.CONST     ), //
-			new Tupple("sube" , "mo", "\u2286" , "subseteq"          , Ttype.CONST     ), //
-			new Tupple("supe" , "mo", "\u2287" , "supseteq"          , Ttype.CONST     ), //
-			new Tupple("-="   , "mo", "\u2261" , "equiv"             , Ttype.CONST     ), //
-			new Tupple("~="   , "mo", "\u2245" , "stackrel{\\sim}{=}", Ttype.CONST     , Flag.NOTEXCOPY), //
-			new Tupple("cong" , "mo", "~="     , null                , Ttype.DEFINITION), //
-			new Tupple("~"    , "mo", "\u223C" , "sim"               , Ttype.CONST     ), //
-			new Tupple("~~"   , "mo", "\u2248" , "approx"            , Ttype.CONST     ), //
-			new Tupple("prop" , "mo", "\u221D" , "propto"            , Ttype.CONST     ), //
+			new Tuple("!="   , "mo", "\u2260" , "ne"                , Ttype.CONST     ), //
+			new Tuple(":="   , "mo", ":="     , null                , Ttype.CONST     ), //
+			new Tuple("lt"   , "mo", "<"      , null                , Ttype.CONST     ), //
+			new Tuple("gt"   , "mo", ">"      , null                , Ttype.CONST     ), //
+			new Tuple("<="   , "mo", "\u2264" , "le"                , Ttype.CONST     ), //
+			new Tuple("lt="  , "mo", "\u2264" , "leq"               , Ttype.CONST     ), //
+			new Tuple("gt="  , "mo", "\u2265" , "geq"               , Ttype.CONST     ), //
+			new Tuple(">="   , "mo", "\u2265" , "ge"                , Ttype.CONST     ), //
+			new Tuple("mlt"  , "mo", "\u226A" , "ll"                , Ttype.CONST     ), //
+			new Tuple("mgt"  , "mo", "\u226B" , "gg"                , Ttype.CONST     ), //
+			new Tuple("-<"   , "mo", "\u227A" , "prec"              , Ttype.CONST     ), //
+			new Tuple("-lt"  , "mo", "\u227A" , null                , Ttype.CONST     ), //
+			new Tuple(">-"   , "mo", "\u227B" , "succ"              , Ttype.CONST     ), //
+			new Tuple("-<="  , "mo", "\u2AAF" , "preceq"            , Ttype.CONST     ), //
+			new Tuple(">-="  , "mo", "\u2AB0" , "succeq"            , Ttype.CONST     ), //
+			new Tuple("in"   , "mo", "\u2208" , null                , Ttype.CONST     ), //
+			new Tuple("!in"  , "mo", "\u2209" , "notin"             , Ttype.CONST     ), //
+			new Tuple("sub"  , "mo", "\u2282" , "subset"            , Ttype.CONST     ), //
+			new Tuple("sup"  , "mo", "\u2283" , "supset"            , Ttype.CONST     ), //
+			new Tuple("sube" , "mo", "\u2286" , "subseteq"          , Ttype.CONST     ), //
+			new Tuple("supe" , "mo", "\u2287" , "supseteq"          , Ttype.CONST     ), //
+			new Tuple("-="   , "mo", "\u2261" , "equiv"             , Ttype.CONST     ), //
+			new Tuple("~="   , "mo", "\u2245" , "stackrel{\\sim}{=}", Ttype.CONST     , Flag.NOTEXCOPY), //
+			new Tuple("cong" , "mo", "~="     , null                , Ttype.DEFINITION), //
+			new Tuple("~"    , "mo", "\u223C" , "sim"               , Ttype.CONST     ), //
+			new Tuple("~~"   , "mo", "\u2248" , "approx"            , Ttype.CONST     ), //
+			new Tuple("prop" , "mo", "\u221D" , "propto"            , Ttype.CONST     ), //
 
 			// logical symbols
-			new Tupple("and"    , "mtext", "and"   , null            , Ttype.SPACE     ), //
-			new Tupple("or"     , "mtext", "or"    , null            , Ttype.SPACE     ), //
-			new Tupple("not"    , "mo"   , "\u00AC", "neg"           , Ttype.CONST     ), //
-			new Tupple("=>"     , "mo"   , "\u21D2", "Rightarrow"    , Ttype.CONST     ), //
-			new Tupple("implies", "mo"   , "=>"    , null            , Ttype.DEFINITION), //
-			new Tupple("if"     , "mo"   , "if"    , null            , Ttype.SPACE     ), //
-			new Tupple("<=>"    , "mo"   , "\u21D4", "Leftrightarrow", Ttype.CONST     ), //
-			new Tupple("iff"    , "mo"   , "<=>"   , null            , Ttype.DEFINITION), //
-			new Tupple("AA"     , "mo"   , "\u2200", "forall"        , Ttype.CONST     ), //
-			new Tupple("EE"     , "mo"   , "\u2203", "exists"        , Ttype.CONST     ), //
-			new Tupple("_|_"    , "mo"   , "\u22A5", "bot"           , Ttype.CONST     ), //
-			new Tupple("TT"     , "mo"   , "\u22A4", "top"           , Ttype.CONST     ), //
-			new Tupple("|--"    , "mo"   , "\u22A2", "vdash"         , Ttype.CONST     ), //
-			new Tupple("|=="    , "mo"   , "\u22A8", "models"        , Ttype.CONST     ), //
+			new Tuple("and"    , "mtext", "and"   , null            , Ttype.SPACE     ), //
+			new Tuple("or"     , "mtext", "or"    , null            , Ttype.SPACE     ), //
+			new Tuple("not"    , "mo"   , "\u00AC", "neg"           , Ttype.CONST     ), //
+			new Tuple("=>"     , "mo"   , "\u21D2", "Rightarrow"    , Ttype.CONST     ), //
+			new Tuple("implies", "mo"   , "=>"    , null            , Ttype.DEFINITION), //
+			new Tuple("if"     , "mo"   , "if"    , null            , Ttype.SPACE     ), //
+			new Tuple("<=>"    , "mo"   , "\u21D4", "Leftrightarrow", Ttype.CONST     ), //
+			new Tuple("iff"    , "mo"   , "<=>"   , null            , Ttype.DEFINITION), //
+			new Tuple("AA"     , "mo"   , "\u2200", "forall"        , Ttype.CONST     ), //
+			new Tuple("EE"     , "mo"   , "\u2203", "exists"        , Ttype.CONST     ), //
+			new Tuple("_|_"    , "mo"   , "\u22A5", "bot"           , Ttype.CONST     ), //
+			new Tuple("TT"     , "mo"   , "\u22A4", "top"           , Ttype.CONST     ), //
+			new Tuple("|--"    , "mo"   , "\u22A2", "vdash"         , Ttype.CONST     ), //
+			new Tuple("|=="    , "mo"   , "\u22A8", "models"        , Ttype.CONST     ), //
 
 			// grouping brackets
-			new Tupple("("      , "mo", "("      , null    , Ttype.LEFTBRACKET  , Flag.VAL                ), //
-			new Tupple(")"      , "mo", ")"      , null    , Ttype.RIGHTBRACKET , Flag.VAL                ), //
-			new Tupple("["      , "mo", "["      , null    , Ttype.LEFTBRACKET  , Flag.VAL                ), //
-			new Tupple("]"      , "mo", "]"      , null    , Ttype.RIGHTBRACKET , Flag.VAL                ), //
-			new Tupple("left("  , "mo", "("      , "("     , Ttype.LEFTBRACKET  , Flag.VAL, Flag.NOTEXCOPY), //
-			new Tupple("right)" , "mo", ")"      , ")"     , Ttype.RIGHTBRACKET , Flag.VAL, Flag.NOTEXCOPY), //
-			new Tupple("left["  , "mo", "["      , "["     , Ttype.LEFTBRACKET  , Flag.VAL, Flag.NOTEXCOPY), //
-			new Tupple("right]" , "mo", "]"      , "]"     , Ttype.RIGHTBRACKET , Flag.VAL, Flag.NOTEXCOPY), //
-			new Tupple("{"      , "mo", "{"      , "lbrace", Ttype.LEFTBRACKET                            ), //
-			new Tupple("}"      , "mo", "}"      , "rbrace", Ttype.RIGHTBRACKET                           ), //
-			new Tupple("|"      , "mo", "|"      , null    , Ttype.LEFTRIGHT    , Flag.VAL                ), //
-			new Tupple("|:"     , "mo", "|"      , "|"     , Ttype.LEFTRIGHT    , Flag.VAL, Flag.NOTEXCOPY), //
-			new Tupple(":|"     , "mo", "|"      , "|"     , Ttype.RIGHTBRACKET , Flag.VAL, Flag.NOTEXCOPY), //
-			new Tupple(":|:"    , "mo", "|"      , "|"     , Ttype.CONST        , Flag.VAL, Flag.NOTEXCOPY), //
-			new Tupple("(:"     , "mo", "\u2329" , "langle", Ttype.LEFTBRACKET                            ), //
-			new Tupple(":)"     , "mo", "\u232A" , "rangle", Ttype.RIGHTBRACKET                           ), //
-			new Tupple("<<"     , "mo", "\u2329" , "langle", Ttype.LEFTBRACKET                            ), //
-			new Tupple(">>"     , "mo", "\u232A" , "rangle", Ttype.RIGHTBRACKET                           ), //
-			new Tupple("{:"     , "mo", "{:"     , null    , Ttype.LEFTBRACKET  , Flag.INVISIBLE          ), //
-			new Tupple(":}"     , "mo", ":}"     , null    , Ttype.RIGHTBRACKET , Flag.INVISIBLE          ), //
+			new Tuple("("      , "mo", "("      , null    , Ttype.LEFTBRACKET  , Flag.VAL                ), //
+			new Tuple(")"      , "mo", ")"      , null    , Ttype.RIGHTBRACKET , Flag.VAL                ), //
+			new Tuple("["      , "mo", "["      , null    , Ttype.LEFTBRACKET  , Flag.VAL                ), //
+			new Tuple("]"      , "mo", "]"      , null    , Ttype.RIGHTBRACKET , Flag.VAL                ), //
+			new Tuple("left("  , "mo", "("      , "("     , Ttype.LEFTBRACKET  , Flag.VAL, Flag.NOTEXCOPY), //
+			new Tuple("right)" , "mo", ")"      , ")"     , Ttype.RIGHTBRACKET , Flag.VAL, Flag.NOTEXCOPY), //
+			new Tuple("left["  , "mo", "["      , "["     , Ttype.LEFTBRACKET  , Flag.VAL, Flag.NOTEXCOPY), //
+			new Tuple("right]" , "mo", "]"      , "]"     , Ttype.RIGHTBRACKET , Flag.VAL, Flag.NOTEXCOPY), //
+			new Tuple("{"      , "mo", "{"      , "lbrace", Ttype.LEFTBRACKET                            ), //
+			new Tuple("}"      , "mo", "}"      , "rbrace", Ttype.RIGHTBRACKET                           ), //
+			new Tuple("|"      , "mo", "|"      , null    , Ttype.LEFTRIGHT    , Flag.VAL                ), //
+			new Tuple("|:"     , "mo", "|"      , "|"     , Ttype.LEFTRIGHT    , Flag.VAL, Flag.NOTEXCOPY), //
+			new Tuple(":|"     , "mo", "|"      , "|"     , Ttype.RIGHTBRACKET , Flag.VAL, Flag.NOTEXCOPY), //
+			new Tuple(":|:"    , "mo", "|"      , "|"     , Ttype.CONST        , Flag.VAL, Flag.NOTEXCOPY), //
+			new Tuple("(:"     , "mo", "\u2329" , "langle", Ttype.LEFTBRACKET                            ), //
+			new Tuple(":)"     , "mo", "\u232A" , "rangle", Ttype.RIGHTBRACKET                           ), //
+			new Tuple("<<"     , "mo", "\u2329" , "langle", Ttype.LEFTBRACKET                            ), //
+			new Tuple(">>"     , "mo", "\u232A" , "rangle", Ttype.RIGHTBRACKET                           ), //
+			new Tuple("{:"     , "mo", "{:"     , null    , Ttype.LEFTBRACKET  , Flag.INVISIBLE          ), //
+			new Tuple(":}"     , "mo", ":}"     , null    , Ttype.RIGHTBRACKET , Flag.INVISIBLE          ), //
 
 			// miscellaneous symbols
-			new Tupple("int"      , "mo", "\u222B"                   , null       , Ttype.CONST                           ), //
-			new Tupple("dx"       , "mi", "{:d x:}"                  , null       , Ttype.DEFINITION                      ), //
-			new Tupple("dy"       , "mi", "{:d y:}"                  , null       , Ttype.DEFINITION                      ), //
-			new Tupple("dz"       , "mi", "{:d z:}"                  , null       , Ttype.DEFINITION                      ), //
-			new Tupple("dt"       , "mi", "{:d t:}"                  , null       , Ttype.DEFINITION                      ), //
-			new Tupple("oint"     , "mo", "\u222E"                   , null       , Ttype.CONST                           ), //
-			new Tupple("del"      , "mo", "\u2202"                   , "partial"  , Ttype.CONST                           ), //
-			new Tupple("grad"     , "mo", "\u2207"                   , "nabla"    , Ttype.CONST                           ), //
-			new Tupple("+-"       , "mo", "\u00B1"                   , "pm"       , Ttype.CONST                           ), //
-			new Tupple("-+"       , "mo", "\u2213"                   , "mp"       , Ttype.CONST                           ), //
-			new Tupple("O/"       , "mo", "\u2205"                   , "emptyset" , Ttype.CONST                           ), //
-			new Tupple("oo"       , "mo", "\u221E"                   , "infty"    , Ttype.CONST                           ), //
-			new Tupple("aleph"    , "mo", "\u2135"                   , null       , Ttype.CONST                           ), //
-			new Tupple("..."      , "mo", "..."                      , "ldots"    , Ttype.CONST                           ), //
-			new Tupple(":."       , "mo", "\u2234"                   , "therefore", Ttype.CONST                           ), //
-			new Tupple(":'"       , "mo", "\u2235"                   , "because"  , Ttype.CONST                           ), //
-			new Tupple("/_"       , "mo", "\u2220"                   , "angle"    , Ttype.CONST                           ), //
-			new Tupple("/_\\"     , "mo", "\u25B3"                   , "triangle" , Ttype.CONST                           ), //
-			new Tupple("\\ "      , "mo", "\u00A0"                   , null       , Ttype.CONST      , Flag.VAL           ), //
-			new Tupple("frown"    , "mo", "\u2322"                   , null       , Ttype.CONST                           ), //
-			new Tupple("%"        , "mo", "%"                        , "%"        , Ttype.CONST      , Flag.NOTEXCOPY     ), //
-			new Tupple("quad"     , "mo", "\u00A0\u00A0"             , null       , Ttype.CONST                           ), //
-			new Tupple("qquad"    , "mo", "\u00A0\u00A0\u00A0\u00A0" , null       , Ttype.CONST                           ), //
-			new Tupple("cdots"    , "mo", "\u22EF"                   , null       , Ttype.CONST                           ), //
-			new Tupple("vdots"    , "mo", "\u22EE"                   , null       , Ttype.CONST                           ), //
-			new Tupple("ddots"    , "mo", "\u22F1"                   , null       , Ttype.CONST                           ), //
-			new Tupple("diamond"  , "mo", "\u22C4"                   , null       , Ttype.CONST                           ), //
-			new Tupple("square"   , "mo", "\u25A1"                   , "boxempty" , Ttype.CONST                           ), //
-			new Tupple("|__"      , "mo", "\u230A"                   , "lfloor"   , Ttype.CONST                           ), //
-			new Tupple("__|"      , "mo", "\u230B"                   , "rfloor"   , Ttype.CONST                           ), //
-			new Tupple("|~"       , "mo", "\u2308"                   , "lceil"    , Ttype.CONST                           ), //
-			new Tupple("lceiling" , "mo", "|~"                       , null       , Ttype.DEFINITION                      ), //
-			new Tupple("~|"       , "mo", "\u2309"                   , "rceil"    , Ttype.CONST                           ), //
-			new Tupple("rceiling" , "mo", "~|"                       , null       , Ttype.DEFINITION                      ), //
-			new Tupple("CC"       , "mo", "\u2102"                   , "mathbb{C}", Ttype.CONST      , Flag.NOTEXCOPY     ), //
-			new Tupple("NN"       , "mo", "\u2115"                   , "mathbb{N}", Ttype.CONST      , Flag.NOTEXCOPY     ), //
-			new Tupple("QQ"       , "mo", "\u211A"                   , "mathbb{Q}", Ttype.CONST      , Flag.NOTEXCOPY     ), //
-			new Tupple("RR"       , "mo", "\u211D"                   , "mathbb{R}", Ttype.CONST      , Flag.NOTEXCOPY     ), //
-			new Tupple("ZZ"       , "mo", "\u2124"                   , "mathbb{Z}", Ttype.CONST      , Flag.NOTEXCOPY     ), //
-			new Tupple("f"        , "mi", "f"                        , null       , Ttype.UNARY      , Flag.FUNC, Flag.VAL), //
-			new Tupple("g"        , "mi", "g"                        , null       , Ttype.UNARY      , Flag.FUNC, Flag.VAL), //
-			new Tupple("prime"    , "mo", "\u2032"                   , "'"        , Ttype.CONST      , Flag.VAL , Flag.NOTEXCOPY), //
-			new Tupple("''"       , "mo", "''"                       , null       , Ttype.CONST      , Flag.VAL           ), //
-			new Tupple("'''"      , "mo", "'''"                      , null       , Ttype.CONST      , Flag.VAL           ), //
-			new Tupple("''''"     , "mo", "''''"                     , null       , Ttype.CONST      , Flag.VAL           ), //
+			new Tuple("int"      , "mo", "\u222B"                   , null       , Ttype.CONST                           ), //
+			new Tuple("dx"       , "mi", "{:d x:}"                  , null       , Ttype.DEFINITION                      ), //
+			new Tuple("dy"       , "mi", "{:d y:}"                  , null       , Ttype.DEFINITION                      ), //
+			new Tuple("dz"       , "mi", "{:d z:}"                  , null       , Ttype.DEFINITION                      ), //
+			new Tuple("dt"       , "mi", "{:d t:}"                  , null       , Ttype.DEFINITION                      ), //
+			new Tuple("oint"     , "mo", "\u222E"                   , null       , Ttype.CONST                           ), //
+			new Tuple("del"      , "mo", "\u2202"                   , "partial"  , Ttype.CONST                           ), //
+			new Tuple("grad"     , "mo", "\u2207"                   , "nabla"    , Ttype.CONST                           ), //
+			new Tuple("+-"       , "mo", "\u00B1"                   , "pm"       , Ttype.CONST                           ), //
+			new Tuple("-+"       , "mo", "\u2213"                   , "mp"       , Ttype.CONST                           ), //
+			new Tuple("O/"       , "mo", "\u2205"                   , "emptyset" , Ttype.CONST                           ), //
+			new Tuple("oo"       , "mo", "\u221E"                   , "infty"    , Ttype.CONST                           ), //
+			new Tuple("aleph"    , "mo", "\u2135"                   , null       , Ttype.CONST                           ), //
+			new Tuple("..."      , "mo", "..."                      , "ldots"    , Ttype.CONST                           ), //
+			new Tuple(":."       , "mo", "\u2234"                   , "therefore", Ttype.CONST                           ), //
+			new Tuple(":'"       , "mo", "\u2235"                   , "because"  , Ttype.CONST                           ), //
+			new Tuple("/_"       , "mo", "\u2220"                   , "angle"    , Ttype.CONST                           ), //
+			new Tuple("/_\\"     , "mo", "\u25B3"                   , "triangle" , Ttype.CONST                           ), //
+			new Tuple("\\ "      , "mo", "\u00A0"                   , null       , Ttype.CONST      , Flag.VAL           ), //
+			new Tuple("frown"    , "mo", "\u2322"                   , null       , Ttype.CONST                           ), //
+			new Tuple("%"        , "mo", "%"                        , "%"        , Ttype.CONST      , Flag.NOTEXCOPY     ), //
+			new Tuple("quad"     , "mo", "\u00A0\u00A0"             , null       , Ttype.CONST                           ), //
+			new Tuple("qquad"    , "mo", "\u00A0\u00A0\u00A0\u00A0" , null       , Ttype.CONST                           ), //
+			new Tuple("cdots"    , "mo", "\u22EF"                   , null       , Ttype.CONST                           ), //
+			new Tuple("vdots"    , "mo", "\u22EE"                   , null       , Ttype.CONST                           ), //
+			new Tuple("ddots"    , "mo", "\u22F1"                   , null       , Ttype.CONST                           ), //
+			new Tuple("diamond"  , "mo", "\u22C4"                   , null       , Ttype.CONST                           ), //
+			new Tuple("square"   , "mo", "\u25A1"                   , "boxempty" , Ttype.CONST                           ), //
+			new Tuple("|__"      , "mo", "\u230A"                   , "lfloor"   , Ttype.CONST                           ), //
+			new Tuple("__|"      , "mo", "\u230B"                   , "rfloor"   , Ttype.CONST                           ), //
+			new Tuple("|~"       , "mo", "\u2308"                   , "lceil"    , Ttype.CONST                           ), //
+			new Tuple("lceiling" , "mo", "|~"                       , null       , Ttype.DEFINITION                      ), //
+			new Tuple("~|"       , "mo", "\u2309"                   , "rceil"    , Ttype.CONST                           ), //
+			new Tuple("rceiling" , "mo", "~|"                       , null       , Ttype.DEFINITION                      ), //
+			new Tuple("CC"       , "mo", "\u2102"                   , "mathbb{C}", Ttype.CONST      , Flag.NOTEXCOPY     ), //
+			new Tuple("NN"       , "mo", "\u2115"                   , "mathbb{N}", Ttype.CONST      , Flag.NOTEXCOPY     ), //
+			new Tuple("QQ"       , "mo", "\u211A"                   , "mathbb{Q}", Ttype.CONST      , Flag.NOTEXCOPY     ), //
+			new Tuple("RR"       , "mo", "\u211D"                   , "mathbb{R}", Ttype.CONST      , Flag.NOTEXCOPY     ), //
+			new Tuple("ZZ"       , "mo", "\u2124"                   , "mathbb{Z}", Ttype.CONST      , Flag.NOTEXCOPY     ), //
+			new Tuple("f"        , "mi", "f"                        , null       , Ttype.UNARY      , Flag.FUNC, Flag.VAL), //
+			new Tuple("g"        , "mi", "g"                        , null       , Ttype.UNARY      , Flag.FUNC, Flag.VAL), //
+			new Tuple("prime"    , "mo", "\u2032"                   , "'"        , Ttype.CONST      , Flag.VAL , Flag.NOTEXCOPY), //
+			new Tuple("''"       , "mo", "''"                       , null       , Ttype.CONST      , Flag.VAL           ), //
+			new Tuple("'''"      , "mo", "'''"                      , null       , Ttype.CONST      , Flag.VAL           ), //
+			new Tuple("''''"     , "mo", "''''"                     , null       , Ttype.CONST      , Flag.VAL           ), //
 
 			// standard functions
-			new Tupple("lim"   , "mo", "lim"   , null, Ttype.UNDEROVER           ), //
-			new Tupple("Lim"   , "mo", "Lim"   , null, Ttype.UNDEROVER           ), //
-			new Tupple("sin"   , "mo", "sin"   , null, Ttype.UNARY    , Flag.FUNC), //
-			new Tupple("cos"   , "mo", "cos"   , null, Ttype.UNARY    , Flag.FUNC), //
-			new Tupple("tan"   , "mo", "tan"   , null, Ttype.UNARY    , Flag.FUNC), //
-			new Tupple("arcsin", "mo", "arcsin", null, Ttype.UNARY    , Flag.FUNC), //
-			new Tupple("arccos", "mo", "arccos", null, Ttype.UNARY    , Flag.FUNC), //
-			new Tupple("arctan", "mo", "arctan", null, Ttype.UNARY    , Flag.FUNC), //
-			new Tupple("sinh"  , "mo", "sinh"  , null, Ttype.UNARY    , Flag.FUNC), //
-			new Tupple("cosh"  , "mo", "cosh"  , null, Ttype.UNARY    , Flag.FUNC), //
-			new Tupple("tanh"  , "mo", "tanh"  , null, Ttype.UNARY    , Flag.FUNC), //
-			new Tupple("cot"   , "mo", "cot"   , null, Ttype.UNARY    , Flag.FUNC), //
-			new Tupple("coth"  , "mo", "coth"  , null, Ttype.UNARY    , Flag.FUNC), //
-			new Tupple("sech"  , "mo", "sech"  , null, Ttype.UNARY    , Flag.FUNC), //
-			new Tupple("csch"  , "mo", "csch"  , null, Ttype.UNARY    , Flag.FUNC), //
-			new Tupple("sec"   , "mo", "sec"   , null, Ttype.UNARY    , Flag.FUNC), //
-			new Tupple("csc"   , "mo", "csc"   , null, Ttype.UNARY    , Flag.FUNC), //
-			new Tupple("log"   , "mo", "log"   , null, Ttype.UNARY    , Flag.FUNC), //
-			new Tupple("ln"    , "mo", "ln"    , null, Ttype.UNARY    , Flag.FUNC), //
-			new Tupple(new String[] { "|"       , "|"        }, "abs"  , "mo", "abs"  , null, Ttype.UNARY, Flag.NOTEXCOPY), //
-			new Tupple(new String[] { "\\|"     , "\\|"      }, "norm" , "mo", "norm" , null, Ttype.UNARY, Flag.NOTEXCOPY), //
-			new Tupple(new String[] { "\\lfloor", "\\rfloor" }, "floor", "mo", "floor", null, Ttype.UNARY, Flag.NOTEXCOPY), //
-			new Tupple(new String[] { "\\lceil" , "\\rceil"  }, "ceil" , "mo", "ceil" , null, Ttype.UNARY, Flag.NOTEXCOPY), //
-			new Tupple("Sin"   , "mo", "Sin"   , null, Ttype.UNARY, Flag.FUNC), //
-			new Tupple("Cos"   , "mo", "Cos"   , null, Ttype.UNARY, Flag.FUNC), //
-			new Tupple("Tan"   , "mo", "Tan"   , null, Ttype.UNARY, Flag.FUNC), //
-			new Tupple("Arcsin", "mo", "Arcsin", null, Ttype.UNARY, Flag.FUNC), //
-			new Tupple("Arccos", "mo", "Arccos", null, Ttype.UNARY, Flag.FUNC), //
-			new Tupple("Arctan", "mo", "Arctan", null, Ttype.UNARY, Flag.FUNC), //
-			new Tupple("Sinh"  , "mo", "Sinh"  , null, Ttype.UNARY, Flag.FUNC), //
-			new Tupple("Cosh"  , "mo", "Cosh"  , null, Ttype.UNARY, Flag.FUNC), //
-			new Tupple("Tanh"  , "mo", "Tanh"  , null, Ttype.UNARY, Flag.FUNC), //
-			new Tupple("Cot"   , "mo", "Cot"   , null, Ttype.UNARY, Flag.FUNC), //
-			new Tupple("Sec"   , "mo", "Sec"   , null, Ttype.UNARY, Flag.FUNC), //
-			new Tupple("Csc"   , "mo", "Csc"   , null, Ttype.UNARY, Flag.FUNC), //
-			new Tupple("Log"   , "mo", "Log"   , null, Ttype.UNARY, Flag.FUNC), //
-			new Tupple("Ln"    , "mo", "Ln"    , null, Ttype.UNARY, Flag.FUNC), //
-			new Tupple(new String[] { "|", "|" }, "Abs", "mo", "abs", null, Ttype.UNARY, Flag.NOTEXCOPY), //
-			new Tupple("det", "mo", "det", null       , Ttype.UNARY    , Flag.FUNC                ), //
-			new Tupple("exp", "mo", "exp", null       , Ttype.UNARY    , Flag.FUNC                ), //
-			new Tupple("dim", "mo", "dim", null       , Ttype.CONST                               ), //
-			new Tupple("mod", "mo", "mod", "text{mod}", Ttype.CONST    , Flag.NOTEXCOPY           ), //
-			new Tupple("gcd", "mo", "gcd", null       , Ttype.UNARY    , Flag.FUNC                ), //
-			new Tupple("lcm", "mo", "lcm", "text{lcm}", Ttype.UNARY    , Flag.FUNC, Flag.NOTEXCOPY), //
-			new Tupple("lub", "mo", "lub", null       , Ttype.CONST                               ), //
-			new Tupple("glb", "mo", "glb", null       , Ttype.CONST                               ), //
-			new Tupple("min", "mo", "min", null       , Ttype.UNDEROVER                           ), //
-			new Tupple("max", "mo", "max", null       , Ttype.UNDEROVER                           ), //
+			new Tuple("lim"   , "mo", "lim"   , null, Ttype.UNDEROVER           ), //
+			new Tuple("Lim"   , "mo", "Lim"   , null, Ttype.UNDEROVER           ), //
+			new Tuple("sin"   , "mo", "sin"   , null, Ttype.UNARY    , Flag.FUNC), //
+			new Tuple("cos"   , "mo", "cos"   , null, Ttype.UNARY    , Flag.FUNC), //
+			new Tuple("tan"   , "mo", "tan"   , null, Ttype.UNARY    , Flag.FUNC), //
+			new Tuple("arcsin", "mo", "arcsin", null, Ttype.UNARY    , Flag.FUNC), //
+			new Tuple("arccos", "mo", "arccos", null, Ttype.UNARY    , Flag.FUNC), //
+			new Tuple("arctan", "mo", "arctan", null, Ttype.UNARY    , Flag.FUNC), //
+			new Tuple("sinh"  , "mo", "sinh"  , null, Ttype.UNARY    , Flag.FUNC), //
+			new Tuple("cosh"  , "mo", "cosh"  , null, Ttype.UNARY    , Flag.FUNC), //
+			new Tuple("tanh"  , "mo", "tanh"  , null, Ttype.UNARY    , Flag.FUNC), //
+			new Tuple("cot"   , "mo", "cot"   , null, Ttype.UNARY    , Flag.FUNC), //
+			new Tuple("coth"  , "mo", "coth"  , null, Ttype.UNARY    , Flag.FUNC), //
+			new Tuple("sech"  , "mo", "sech"  , null, Ttype.UNARY    , Flag.FUNC), //
+			new Tuple("csch"  , "mo", "csch"  , null, Ttype.UNARY    , Flag.FUNC), //
+			new Tuple("sec"   , "mo", "sec"   , null, Ttype.UNARY    , Flag.FUNC), //
+			new Tuple("csc"   , "mo", "csc"   , null, Ttype.UNARY    , Flag.FUNC), //
+			new Tuple("log"   , "mo", "log"   , null, Ttype.UNARY    , Flag.FUNC), //
+			new Tuple("ln"    , "mo", "ln"    , null, Ttype.UNARY    , Flag.FUNC), //
+			new Tuple(new String[] { "|"       , "|"        }, "abs"  , "mo", "abs"  , null, Ttype.UNARY, Flag.NOTEXCOPY), //
+			new Tuple(new String[] { "\\|"     , "\\|"      }, "norm" , "mo", "norm" , null, Ttype.UNARY, Flag.NOTEXCOPY), //
+			new Tuple(new String[] { "\\lfloor", "\\rfloor" }, "floor", "mo", "floor", null, Ttype.UNARY, Flag.NOTEXCOPY), //
+			new Tuple(new String[] { "\\lceil" , "\\rceil"  }, "ceil" , "mo", "ceil" , null, Ttype.UNARY, Flag.NOTEXCOPY), //
+			new Tuple("Sin"   , "mo", "Sin"   , null, Ttype.UNARY, Flag.FUNC), //
+			new Tuple("Cos"   , "mo", "Cos"   , null, Ttype.UNARY, Flag.FUNC), //
+			new Tuple("Tan"   , "mo", "Tan"   , null, Ttype.UNARY, Flag.FUNC), //
+			new Tuple("Arcsin", "mo", "Arcsin", null, Ttype.UNARY, Flag.FUNC), //
+			new Tuple("Arccos", "mo", "Arccos", null, Ttype.UNARY, Flag.FUNC), //
+			new Tuple("Arctan", "mo", "Arctan", null, Ttype.UNARY, Flag.FUNC), //
+			new Tuple("Sinh"  , "mo", "Sinh"  , null, Ttype.UNARY, Flag.FUNC), //
+			new Tuple("Cosh"  , "mo", "Cosh"  , null, Ttype.UNARY, Flag.FUNC), //
+			new Tuple("Tanh"  , "mo", "Tanh"  , null, Ttype.UNARY, Flag.FUNC), //
+			new Tuple("Cot"   , "mo", "Cot"   , null, Ttype.UNARY, Flag.FUNC), //
+			new Tuple("Sec"   , "mo", "Sec"   , null, Ttype.UNARY, Flag.FUNC), //
+			new Tuple("Csc"   , "mo", "Csc"   , null, Ttype.UNARY, Flag.FUNC), //
+			new Tuple("Log"   , "mo", "Log"   , null, Ttype.UNARY, Flag.FUNC), //
+			new Tuple("Ln"    , "mo", "Ln"    , null, Ttype.UNARY, Flag.FUNC), //
+			new Tuple(new String[] { "|", "|" }, "Abs", "mo", "abs", null, Ttype.UNARY, Flag.NOTEXCOPY), //
+			new Tuple("det", "mo", "det", null       , Ttype.UNARY    , Flag.FUNC                ), //
+			new Tuple("exp", "mo", "exp", null       , Ttype.UNARY    , Flag.FUNC                ), //
+			new Tuple("dim", "mo", "dim", null       , Ttype.CONST                               ), //
+			new Tuple("mod", "mo", "mod", "text{mod}", Ttype.CONST    , Flag.NOTEXCOPY           ), //
+			new Tuple("gcd", "mo", "gcd", null       , Ttype.UNARY    , Flag.FUNC                ), //
+			new Tuple("lcm", "mo", "lcm", "text{lcm}", Ttype.UNARY    , Flag.FUNC, Flag.NOTEXCOPY), //
+			new Tuple("lub", "mo", "lub", null       , Ttype.CONST                               ), //
+			new Tuple("glb", "mo", "glb", null       , Ttype.CONST                               ), //
+			new Tuple("min", "mo", "min", null       , Ttype.UNDEROVER                           ), //
+			new Tuple("max", "mo", "max", null       , Ttype.UNDEROVER                           ), //
 
 			// arrows
-			new Tupple("uarr", "mo", "\u2191", "uparrow"              , Ttype.CONST), //
-			new Tupple("darr", "mo", "\u2193", "downarrow"            , Ttype.CONST), //
-			new Tupple("rarr", "mo", "\u2192", "rightarrow"           , Ttype.CONST), //
-			new Tupple("->"  , "mo", "\u2192", "to"                   , Ttype.CONST), //
-			new Tupple(">->" , "mo", "\u21A3", "rightarrowtail"       , Ttype.CONST), //
-			new Tupple("->>" , "mo", "\u21A0", "twoheadrightarrow"    , Ttype.CONST), //
-			new Tupple(">->>", "mo", "\u2916", "twoheadrightarrowtail", Ttype.CONST), //
-			new Tupple("|->" , "mo", "\u21A6", "mapsto"               , Ttype.CONST), //
-			new Tupple("larr", "mo", "\u2190", "leftarrow"            , Ttype.CONST), //
-			new Tupple("harr", "mo", "\u2194", "leftrightarrow"       , Ttype.CONST), //
-			new Tupple("uArr", "mo", "\u21D1", "Uparrow"              , Ttype.CONST), //
-			new Tupple("dArr", "mo", "\u21D3", "Downarrow"            , Ttype.CONST), //
-			new Tupple("rArr", "mo", "\u21D2", "Rightarrow"           , Ttype.CONST), //
-			new Tupple("lArr", "mo", "\u21D0", "Leftarrow"            , Ttype.CONST), //
-			new Tupple("hArr", "mo", "\u21D4", "Leftrightarrow"       , Ttype.CONST), //
+			new Tuple("uarr", "mo", "\u2191", "uparrow"              , Ttype.CONST), //
+			new Tuple("darr", "mo", "\u2193", "downarrow"            , Ttype.CONST), //
+			new Tuple("rarr", "mo", "\u2192", "rightarrow"           , Ttype.CONST), //
+			new Tuple("->"  , "mo", "\u2192", "to"                   , Ttype.CONST), //
+			new Tuple(">->" , "mo", "\u21A3", "rightarrowtail"       , Ttype.CONST), //
+			new Tuple("->>" , "mo", "\u21A0", "twoheadrightarrow"    , Ttype.CONST), //
+			new Tuple(">->>", "mo", "\u2916", "twoheadrightarrowtail", Ttype.CONST), //
+			new Tuple("|->" , "mo", "\u21A6", "mapsto"               , Ttype.CONST), //
+			new Tuple("larr", "mo", "\u2190", "leftarrow"            , Ttype.CONST), //
+			new Tuple("harr", "mo", "\u2194", "leftrightarrow"       , Ttype.CONST), //
+			new Tuple("uArr", "mo", "\u21D1", "Uparrow"              , Ttype.CONST), //
+			new Tuple("dArr", "mo", "\u21D3", "Downarrow"            , Ttype.CONST), //
+			new Tuple("rArr", "mo", "\u21D2", "Rightarrow"           , Ttype.CONST), //
+			new Tuple("lArr", "mo", "\u21D0", "Leftarrow"            , Ttype.CONST), //
+			new Tuple("hArr", "mo", "\u21D4", "Leftrightarrow"       , Ttype.CONST), //
 
 
 			// commands with argument
 			aAMsqrt, aAMroot, aAMfrac, aAMdiv, aAMover, aAMsub, aAMsup,
-			new Tupple("cancel"   , "menclose", "cancel", null               , Ttype.UNARY                          ), //
-			new Tupple("Sqrt"     , "msqrt"   , "sqrt"  , null               , Ttype.UNARY                          ), //
-			new Tupple("hat"      , "mover"   , "\u005E", null               , Ttype.UNARY, Flag.ACC                ), //
-			new Tupple("bar"      , "mover"   , "\u00AF", "overline"         , Ttype.UNARY, Flag.ACC                ), //
-			new Tupple("vec"      , "mover"   , "\u2192", null               , Ttype.UNARY, Flag.ACC                ), //
-			new Tupple("tilde"    , "mover"   , "~"     , null               , Ttype.UNARY, Flag.ACC                ), //
-			new Tupple("dot"      , "mover"   , "."     , null               , Ttype.UNARY, Flag.ACC                ), //
-			new Tupple("ddot"     , "mover"   , ".."    , null               , Ttype.UNARY, Flag.ACC                ), //
-			new Tupple("overarc"  , "mover"   , "\u23DC", "stackrel{\\frown}", Ttype.UNARY, Flag.ACC, Flag.NOTEXCOPY), //
-			new Tupple("overparen", "mover"   , "\u23DC", "stackrel{\\frown}", Ttype.UNARY, Flag.ACC, Flag.NOTEXCOPY), //
-			new Tupple("ul"       , "munder"  , "\u0332", "underline"        , Ttype.UNARY, Flag.ACC                ), //
-			new Tupple("ubrace"   , "munder"  , "\u23DF", "underbrace"       , Ttype.UNARY, Flag.ACC                ), //
-			new Tupple("obrace"   , "mover"   , "\u23DE", "overbrace"        , Ttype.UNARY, Flag.ACC                ), //
+			new Tuple("cancel"   , "menclose", "cancel", null               , Ttype.UNARY                          ), //
+			new Tuple("Sqrt"     , "msqrt"   , "sqrt"  , null               , Ttype.UNARY                          ), //
+			new Tuple("hat"      , "mover"   , "\u005E", null               , Ttype.UNARY, Flag.ACC                ), //
+			new Tuple("bar"      , "mover"   , "\u00AF", "overline"         , Ttype.UNARY, Flag.ACC                ), //
+			new Tuple("vec"      , "mover"   , "\u2192", null               , Ttype.UNARY, Flag.ACC                ), //
+			new Tuple("tilde"    , "mover"   , "~"     , null               , Ttype.UNARY, Flag.ACC                ), //
+			new Tuple("dot"      , "mover"   , "."     , null               , Ttype.UNARY, Flag.ACC                ), //
+			new Tuple("ddot"     , "mover"   , ".."    , null               , Ttype.UNARY, Flag.ACC                ), //
+			new Tuple("overarc"  , "mover"   , "\u23DC", "stackrel{\\frown}", Ttype.UNARY, Flag.ACC, Flag.NOTEXCOPY), //
+			new Tuple("overparen", "mover"   , "\u23DC", "stackrel{\\frown}", Ttype.UNARY, Flag.ACC, Flag.NOTEXCOPY), //
+			new Tuple("ul"       , "munder"  , "\u0332", "underline"        , Ttype.UNARY, Flag.ACC                ), //
+			new Tuple("ubrace"   , "munder"  , "\u23DF", "underbrace"       , Ttype.UNARY, Flag.ACC                ), //
+			new Tuple("obrace"   , "mover"   , "\u23DE", "overbrace"        , Ttype.UNARY, Flag.ACC                ), //
 			aAMtext, aAMmbox, aAMquote, //
-			new Tupple("color"   , "mstyle", null      , null      , Ttype.BINARY                ), //
-			new Tupple("bb"      , "mstyle", "bb"      , "mathbf"  , Ttype.UNARY , Flag.NOTEXCOPY), //
-			new Tupple("mathbf"  , "mstyle", "mathbf"  , null      , Ttype.UNARY                 ), //
-			new Tupple("sf"      , "mstyle", "sf"      , "mathsf"  , Ttype.UNARY , Flag.NOTEXCOPY), //
-			new Tupple("mathsf"  , "mstyle", "mathsf"  , null      , Ttype.UNARY                 ), //
-			new Tupple("bbb"     , "mstyle", "bbb"     , "mathbb"  , Ttype.UNARY , Flag.NOTEXCOPY), //
-			new Tupple("mathbb"  , "mstyle", "mathbb"  , null      , Ttype.UNARY                 ), //
-			new Tupple("cc"      , "mstyle", "cc"      , "mathcal" , Ttype.UNARY , Flag.NOTEXCOPY), //
-			new Tupple("mathcal" , "mstyle", "mathcal" , null      , Ttype.UNARY                 ), //
-			new Tupple("tt"      , "mstyle", "tt"      , "mathtt"  , Ttype.UNARY , Flag.NOTEXCOPY), //
-			new Tupple("mathtt"  , "mstyle", "mathtt"  , null      , Ttype.UNARY                 ), //
-			new Tupple("fr"      , "mstyle", "fr"      , "mathfrak", Ttype.UNARY , Flag.NOTEXCOPY), //
-			new Tupple("mathfrak", "mstyle", "mathfrak", null      , Ttype.UNARY                 ), //
+			new Tuple("color"   , "mstyle", null      , null      , Ttype.BINARY                ), //
+			new Tuple("bb"      , "mstyle", "bb"      , "mathbf"  , Ttype.UNARY , Flag.NOTEXCOPY), //
+			new Tuple("mathbf"  , "mstyle", "mathbf"  , null      , Ttype.UNARY                 ), //
+			new Tuple("sf"      , "mstyle", "sf"      , "mathsf"  , Ttype.UNARY , Flag.NOTEXCOPY), //
+			new Tuple("mathsf"  , "mstyle", "mathsf"  , null      , Ttype.UNARY                 ), //
+			new Tuple("bbb"     , "mstyle", "bbb"     , "mathbb"  , Ttype.UNARY , Flag.NOTEXCOPY), //
+			new Tuple("mathbb"  , "mstyle", "mathbb"  , null      , Ttype.UNARY                 ), //
+			new Tuple("cc"      , "mstyle", "cc"      , "mathcal" , Ttype.UNARY , Flag.NOTEXCOPY), //
+			new Tuple("mathcal" , "mstyle", "mathcal" , null      , Ttype.UNARY                 ), //
+			new Tuple("tt"      , "mstyle", "tt"      , "mathtt"  , Ttype.UNARY , Flag.NOTEXCOPY), //
+			new Tuple("mathtt"  , "mstyle", "mathtt"  , null      , Ttype.UNARY                 ), //
+			new Tuple("fr"      , "mstyle", "fr"      , "mathfrak", Ttype.UNARY , Flag.NOTEXCOPY), //
+			new Tuple("mathfrak", "mstyle", "mathfrak", null      , Ttype.UNARY                 ), //
 	} //
 	));
 
@@ -441,10 +441,10 @@ public class ASCIIMathTeXImg {
 		int symlen = aAMsymbols.size();
 		for (int i = 0; i < symlen; i++) {
 			if (aAMsymbols.get(i).tex != null && !(aAMsymbols.get(i).hasFlag(Flag.NOTEXCOPY))) {
-				Tupple tmp = aAMsymbols.get(i).hasFlag(Flag.ACC)
-						? new Tupple(aAMsymbols.get(i).tex, aAMsymbols.get(i).tag, aAMsymbols.get(i).output, null,
+				Tuple tmp = aAMsymbols.get(i).hasFlag(Flag.ACC)
+						? new Tuple(aAMsymbols.get(i).tex, aAMsymbols.get(i).tag, aAMsymbols.get(i).output, null,
 								aAMsymbols.get(i).ttype, Flag.ACC)
-						: new Tupple(aAMsymbols.get(i).tex, aAMsymbols.get(i).tag, aAMsymbols.get(i).output, null,
+						: new Tuple(aAMsymbols.get(i).tex, aAMsymbols.get(i).tag, aAMsymbols.get(i).output, null,
 								aAMsymbols.get(i).ttype);
 				aAMsymbols.add(tmp);
 			}
@@ -497,7 +497,7 @@ public class ASCIIMathTeXImg {
 		return i; // i=arr.length || arr[i]>=str
 	}
 
-	private Tupple aAMgetSymbol(String str) {
+	private Tuple aAMgetSymbol(String str) {
 		// return maximal initial substring of str that appears in names
 		// return null if there is none
 		int k = 0; // new pos
@@ -556,9 +556,9 @@ public class ASCIIMathTeXImg {
 		}
 		if (st.equals("-") && str.length() > 1 && str.charAt(1) != ' ' && aAMpreviousSymbol == Ttype.INFIX) {
 			aAMcurrentSymbol = Ttype.INFIX;
-			return new Tupple(st, tagst, st, null, Ttype.UNARY, Flag.FUNC, Flag.VAL);
+			return new Tuple(st, tagst, st, null, Ttype.UNARY, Flag.FUNC, Flag.VAL);
 		}
-		return new Tupple(st, tagst, st, null, Ttype.CONST, Flag.VAL); // added val bit
+		return new Tuple(st, tagst, st, null, Ttype.CONST, Flag.VAL); // added val bit
 
 	}
 
@@ -598,7 +598,7 @@ public class ASCIIMathTeXImg {
 		return node;
 	}
 
-	private String aAMTgetTeXsymbol(Tupple symb) {
+	private String aAMTgetTeXsymbol(Tuple symb) {
 		String pre;
 		if (symb.hasFlag(Flag.VAL)) {
 			pre = "";
@@ -615,7 +615,7 @@ public class ASCIIMathTeXImg {
 	}
 
 	private String[] aAMTparseSexpr(String str) {
-		Tupple symbol;
+		Tuple symbol;
 		int i;
 		String node;
 		String st;
@@ -782,9 +782,9 @@ public class ASCIIMathTeXImg {
 	}
 
 	private String[] aAMTparseIexpr(String str) {
-		Tupple symbol;
-		Tupple sym1;
-		Tupple sym2;
+		Tuple symbol;
+		Tuple sym1;
+		Tuple sym2;
 		String[] result;
 		String node;
 		str = aAMremoveCharsAndBlanks(str, 0);
@@ -833,7 +833,7 @@ public class ASCIIMathTeXImg {
 
 	private String[] aAMTparseExpr(String str, boolean rightbracket) {
 		String[] result;
-		Tupple symbol;
+		Tuple symbol;
 		String node;
 		// var symbol, node, result, i, nodeList = [],
 		String newFrag = "";
