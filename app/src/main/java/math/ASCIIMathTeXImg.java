@@ -30,7 +30,7 @@
  *
  *
  * Translated and refactored by:  Arnaud Roques
- * 
+ * Contribution: The-Lum
  *
  */
 
