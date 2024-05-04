@@ -450,7 +450,6 @@ public class ASCIIMathTeXImg {
 			}
 		}
 		refreshSymbols();
-
 	}
 
 	private static void refreshSymbols() {
@@ -559,7 +558,6 @@ public class ASCIIMathTeXImg {
 			return new Tuple(st, tagst, st, null, Ttype.UNARY, Flag.FUNC, Flag.VAL);
 		}
 		return new Tuple(st, tagst, st, null, Ttype.CONST, Flag.VAL); // added val bit
-
 	}
 
 	private String aAMTremoveBrackets(String node) {
@@ -788,7 +786,6 @@ public class ASCIIMathTeXImg {
 			// alert("default");
 			str = aAMremoveCharsAndBlanks(str, symbol.input.length());
 			return new String[] { "{" + aAMTgetTeXsymbol(symbol) + "}", str };
-
 		}
 	}
 
@@ -994,7 +991,6 @@ public class ASCIIMathTeXImg {
 						if (matrix) {
 							newFrag = mxout;
 						}
-
 					}
 				}
 			}
@@ -1012,7 +1008,6 @@ public class ASCIIMathTeXImg {
 			newFrag += "\\right."; // adjust for non-matching left brackets
 			// todo: adjust for non-matching right brackets
 		}
-
 		return new String[] { newFrag, str };
 	}
 
@@ -1031,5 +1026,4 @@ public class ASCIIMathTeXImg {
 	static {
 		aAMinitSymbols();
 	}
-
 }
