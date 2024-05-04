@@ -598,6 +598,17 @@ public class ASCIIMathTeXImg {
 		return node;
 	}
 
+	/* Parsing ASCII math expressions with the following grammar:
+	v ::= [A-Za-z] | greek letters | numbers | other constant symbols
+	u ::= sqrt | text | bb | other unary symbols for font commands
+	b ::= frac | root | stackrel         binary symbols
+	l ::= ( | [ | { | (: | {:            left brackets
+	r ::= ) | ] | } | :) | :}            right brackets
+	S ::= v | lEr | uS | bSS             Simple expression
+	I ::= S_S | S^S | S_S^S | S          Intermediate expression
+	E ::= IE | I/I                       Expression
+	*/
+	
 	private String aAMTgetTeXsymbol(Tuple symb) {
 		String pre;
 		if (symb.hasFlag(Flag.VAL)) {
