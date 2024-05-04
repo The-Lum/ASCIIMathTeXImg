@@ -19,5 +19,10 @@ This code will convert expressions in [AsciiMath](https://en.wikipedia.org/wiki/
 ## 🐘 Gradle Java App. Architecture
 This project was created with this Gradle sample: [sample_building_java_applications](https://docs.gradle.org/current/samples/sample_building_java_applications.html).
 
+## ✅ Unit Tests
+Unit tests inspired and taken from [`asciimathml/test/unittests.js`](https://github.com/asciimath/asciimathml/blob/36b3cb0a1bac755b4f66a0b49e2e7c9e85cf55bb/test/unittests.js).
+
 ## 🕵️ Code Coverage 
-See [Jacoco (Java Code Coverage) report](docs/jacocoSummary.md).
+See:
+- [Jacoco (Java Code Coverage) report](docs/jacocoSummary.md)
+- [Sonar Cloud ![Coverage](https://sonarcloud.io/api/project_badges/measure?project=The-Lum_ASCIIMathTeXImg&metric=coverage)](https://sonarcloud.io/component_measures?id=The-Lum_ASCIIMathTeXImg&metric=coverage&view=list)
