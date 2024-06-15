@@ -493,8 +493,8 @@ class ASCIIMathTeXImgUnitTest {
 		" f'''                                                     , {f}''' ",
 		" uArr                                                     , \\Uparrow ",
 		" dArr                                                     , \\Downarrow ",
-		})
-		void mathUnitTest(String input, String expected) {
+	})
+	void mathUnitTest(String input, String expected) {
 		final String res = cut.getTeX(input);
 		assertThat(res).isEqualTo(expected);
 	}
