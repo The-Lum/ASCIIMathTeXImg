@@ -640,7 +640,8 @@ public class ASCIIMathTeXImg {
 			symbol = aAMgetSymbol(str);
 		}
 		switch (symbol.ttype) {
-		case UNDEROVER, CONST:
+		case UNDEROVER:
+		case CONST:
 			str = aAMremoveCharsAndBlanks(str, symbol.input.length());
 			String texsymbol = aAMTgetTeXsymbol(symbol);
 			if (texsymbol.isEmpty() || texsymbol.charAt(0) == '\\' || symbol.tag.equals("mo"))
