@@ -562,6 +562,13 @@ class TestUnitTestGen {
 // Arrow (PR 138)
 		"uArr",
 		"dArr",
+
+// Newline (see plantuml/plantuml#1824)
+		"newline",
+		"a newline b",
+		"anewlineb",
+		"a^2newlinea^3",
+
 	})
 	void test(String input) {
 		String res = cut.getTeX(input);
